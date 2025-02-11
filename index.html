@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slideshow</title>
+    <title>One Picture</title>
+    <link rel="icon" href="assets/1_picture.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -13,8 +14,16 @@
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
     <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
-    <button class="music-toggle"><i class="fas fa-play" id="music-icon"></i></button>
-    <audio id="backgroundMusic" loop></audio>
+    <div class="button">
+        <button class="music-toggle"><i class="fas fa-play" id="music-icon"></i></button>
+        <button class="stack-list"><i class="fas fa-list"></i></button>
+        <ul class="stack-list-menu" id="menu" style="display: none;">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </div>
+    <audio id="backgroundMusic"></audio>
 
     <script src="script.js"></script>
 </body>

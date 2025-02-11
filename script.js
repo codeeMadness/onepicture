@@ -25,7 +25,6 @@ showSlides();
 let currentMusicIndex = 0;
 const backgroundMusic = document.getElementById('backgroundMusic');
 backgroundMusic.src = musicFolderPath + musicFiles[currentMusicIndex];
-backgroundMusic.play();
 
 backgroundMusic.addEventListener('ended', () => {
     currentMusicIndex++;
@@ -43,12 +42,12 @@ let isPlaying = false;
 toggleButton.addEventListener('click', () => {
     if (isPlaying) {
         backgroundMusic.pause();
-        musicIcon.classList.remove('fa-play');
-        musicIcon.classList.add('fa-pause');
+        musicIcon.classList.add('fa-play');
+        musicIcon.classList.remove('fa-pause');
     } else {
         backgroundMusic.play();
-        musicIcon.classList.remove('fa-pause');
-        musicIcon.classList.add('fa-play');
+        musicIcon.classList.add('fa-pause');
+        musicIcon.classList.remove('fa-play');
     }
     isPlaying = !isPlaying;
 });
@@ -87,4 +86,19 @@ function showSlides() {
 function plusSlides(n) {
     slideIndex += n - 1;
     showSlides();
+}
+
+const stackList = document.querySelector('.stack-list');
+
+stackList.addEventListener('click', () => {
+    toggleMenu();
+});
+
+function toggleMenu() {
+    var menu = document.getElementById('menu');
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'block';
+    }
 }
