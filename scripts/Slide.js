@@ -7,7 +7,6 @@ export class Slide {
             this.images.push(this.folderPath + 'image' + i + '.png');
         }
         this.slideshowContainer = document.querySelector('.slideshow-container');
-        this.createSlides();
 
         this.prev = document.querySelector('.prev');
         this.next = document.querySelector('.next');
@@ -21,8 +20,9 @@ export class Slide {
         });
     }
 
-    addSlide(slide) {
-        this.images = this.images.concat(slide.getImages());
+    reset() {
+        this.slideshowContainer.innerHTML = "";
+        this.slideIndex = 0;
     }
 
     getImages() {
@@ -37,6 +37,7 @@ export class Slide {
     }
 
     createSlides() {
+        this.reset();
         this.images.forEach(src => {
             let slideDiv = document.createElement('div');
             slideDiv.className = 'slide fade';
