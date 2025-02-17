@@ -6,6 +6,27 @@ export class Slide {
         for (let i = 1; i <= imageCount; i++) {
             this.images.push(this.folderPath + 'image' + i + '.png');
         }
+        this.slideshowContainer = document.querySelector('.slideshow-container');
+        this.createSlides();
+
+        this.prev = document.querySelector('.prev');
+        this.next = document.querySelector('.next');
+
+        this.prev.addEventListener('click', () => {
+            this.plusSlides(-1);
+        });
+
+        this.next.addEventListener('click', () => {
+            this.plusSlides(1);
+        });
+    }
+
+    addSlide(slide) {
+        this.images = this.images.concat(slide.getImages());
+    }
+
+    getImages() {
+        return this.images;
     }
 
     shuffleArray() {
@@ -16,7 +37,6 @@ export class Slide {
     }
 
     createSlides() {
-        const slideshowContainer = document.querySelector('.slideshow-container');
         this.images.forEach(src => {
             let slideDiv = document.createElement('div');
             slideDiv.className = 'slide fade';
@@ -24,17 +44,18 @@ export class Slide {
             img.src = src;
             img.style.width = '100%';
             slideDiv.appendChild(img);
-            slideshowContainer.appendChild(slideDiv);
+            this.slideshowContainer.appendChild(slideDiv);
         });
     }
 
     showSlides() {
         let slides = document.getElementsByClassName("slide");
+
         for (let i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";  
         }
         this.slideIndex++;
-        if (this.slideIndex > slides.length) {this.slideIndex = 1}    
+        if (this.slideIndex > slides.length || this.slideIndex-1 < 0) {this.slideIndex = 1}    
         slides[this.slideIndex - 1].style.display = "block";
         setTimeout(this.showSlides.bind(this), 10000); // Change image every 10 seconds
     }

@@ -1,3 +1,0 @@
-User-agent: *
-Disallow: /images/
-Disallow: /node_modules/

@@ -1,85 +1,27 @@
+import { Modal } from './Modal.js';
+import { Music } from './Music.js';
 import { Slide } from './Slide.js';
 
-const javaSlides = new Slide("./images/java/", 2);
-
-javaSlides.shuffleArray();
-javaSlides.createSlides();
+const javaSlides = new Slide("./images/java/", 3);
 javaSlides.showSlides();
 
-const prev = document.querySelector('.prev');
-const next = document.querySelector('.next');
+const systemSlides = new Slide("./images/systemdesign/", 2);
 
-prev.addEventListener('click', () => {
-    javaSlides.plusSlides(-1);
+const pickJava = document.getElementById("java");
+pickJava.addEventListener('click', () => {
+    javaSlides.showSlides();
 });
 
-next.addEventListener('click', () => {
-    javaSlides.plusSlides(1);
+const pickDesignPatterns = document.getElementById("system-designs");
+pickDesignPatterns.addEventListener('click', () => {
+    systemSlides.showSlides();
 });
 
+const music = new Music();
+music.play();
 
-const musicFolderPath = 'music/'; // Change this to your music folder path
-const musicFiles = [
-    'track1.mp3',
-    'track2.mp3',
-    'track3.mp3',
-    'track4.mp3',
-    'track5.mp3'
-]; // List all your music files here
+const modal = new Modal();
+modal.action();
 
-
-let currentMusicIndex = 0;
-const backgroundMusic = document.getElementById('backgroundMusic');
-backgroundMusic.src = musicFolderPath + musicFiles[currentMusicIndex];
-
-backgroundMusic.addEventListener('ended', () => {
-    currentMusicIndex++;
-    if (currentMusicIndex >= musicFiles.length) {
-        currentMusicIndex = 0;
-    }
-    backgroundMusic.src = musicFolderPath + musicFiles[currentMusicIndex];
-    backgroundMusic.play();
-});
-
-const toggleButton = document.querySelector('.music-toggle');
-const musicIcon = document.getElementById('music-icon');
-let isPlaying = false;
-
-toggleButton.addEventListener('click', () => {
-    if (isPlaying) {
-        backgroundMusic.pause();
-        musicIcon.classList.add('fa-play');
-        musicIcon.classList.remove('fa-pause');
-    } else {
-        backgroundMusic.play();
-        musicIcon.classList.add('fa-pause');
-        musicIcon.classList.remove('fa-play');
-    }
-    isPlaying = !isPlaying;
-});
-
-
-const stackList = document.querySelector('.stack-list');
-
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-stackList.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+//copyright
+document.getElementById('currentYear').textContent = new Date().getFullYear();
