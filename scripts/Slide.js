@@ -2,10 +2,15 @@ export class Slide {
     constructor(path, imageCount) {
         this.folderPath = path;
         this.slideIndex = 0;
+        this.imageCount = imageCount
         this.images = [];
-        for (let i = 1; i <= imageCount; i++) {
+        for (let i = 1; i <= this.imageCount; i++) {
             this.images.push(this.folderPath + 'image' + i + '.png');
         }
+        this.init();
+    }
+
+    init() {
         this.slideshowContainer = document.querySelector('.slideshow-container');
 
         this.prev = document.querySelector('.prev');
@@ -29,11 +34,22 @@ export class Slide {
         return this.images;
     }
 
+    getImageCount() {
+        return this.imageCount;
+    }
+
+    addSlide(slide) {
+        this.images = this.images.concat(slide.getImages());
+        this.imageCount += slide.getImageCount();
+        return this;
+    }
+
     shuffleArray() {
-        for (let i = this.images - 1; i > 0; i--) {
+        for (let i = this.images.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [this.images[i], this.images[j]] = [this.images[j], this.images[i]];
         }
+        return this.images;
     }
 
     createSlides() {
@@ -58,7 +74,7 @@ export class Slide {
         this.slideIndex++;
         if (this.slideIndex > slides.length || this.slideIndex-1 < 0) {this.slideIndex = 1}    
         slides[this.slideIndex - 1].style.display = "block";
-        setTimeout(this.showSlides.bind(this), 10000); // Change image every 10 seconds
+        // setTimeout(this.showSlides.bind(this), 10000); // Change image every 10 seconds
     }
  
     plusSlides(n) {

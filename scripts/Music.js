@@ -37,7 +37,7 @@ export class Music {
             if (this.currentMusicIndex >= this.musicFiles.length) {
                 this.currentMusicIndex = 0;
             }
-            this.backgroundMusic.src = this.musicFolderPath + this.musicFiles[currentMusicIndex];
+            this.backgroundMusic.src = this.musicFolderPath + this.musicFiles[this.currentMusicIndex];
             this.backgroundMusic.play();
         });
         this.toggle();
