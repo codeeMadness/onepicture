@@ -2,11 +2,11 @@ import { Modal } from './Modal.js';
 import { Music } from './Music.js';
 import { Slide } from './Slide.js';
 
-const javaSlides = new Slide("./images/java/", 3);
+const javaSlides = new Slide("./images/java/", 13);
 javaSlides.createSlides();
 javaSlides.showSlides();
 
-const systemSlides = new Slide("./images/systemdesign/", 2);
+const systemSlides = new Slide("./images/systemdesign/", 4);
 
 const pickJava = document.getElementById("java");
 pickJava.addEventListener('click', () => {
