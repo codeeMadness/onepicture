@@ -1,15 +1,14 @@
 export class Modal {
-    constructor() {
+    constructor(id, component) {
         // Get the modal
-        this.modal = document.getElementById("myModal");
+        this.modal = document.getElementById(id);
         // Get the <span> element that closes the modal
-        this.span = document.getElementsByClassName("close")[0];
-        // When the user clicks the button, open the modal 
-        this.stackList = document.querySelector('.stack-list');
+        this.span = document.getElementsByClassName(id + " close")[0];
+        this.component = component;
     }
 
     action() {
-        this.stackList.onclick = function() {
+        this.component.onclick = function() {
             this.modal.style.display = "block";
         }.bind(this);
 

@@ -24,7 +24,7 @@ body {
     display: none;
 }
 
-img {
+.img-slide {
     width: auto;
     height: auto;
     margin: 20px auto; /* Add margin to all sides */
@@ -76,21 +76,21 @@ img {
     align-items: center; 
 }
 
-.music-toggle {
+.btn {
     width: 100%;
     transform: translateY(-50%);
     padding: 10px 20px;
-    background-color: #5bacc7;
-    color: white;
-    border: none;
-    cursor: pointer;
+}
+
+.music-toggle {
     margin-bottom: 10%;
 }
 
 .stack-list {
-    width: 100%;
-    transform: translateY(-50%);
-    padding: 10px 20px;
+    margin-bottom: 10%;   
+}
+
+.menu {
     background-color: #5bacc7;
     color: white;
     border: none;
@@ -131,6 +131,47 @@ img {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.info-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.avatar-container {
+    flex: 1;
+    text-align: left;
+}
+
+.avatar {
+    width: 250px;
+    height: 300px;
+    border-radius: 10%;
+}
+
+.info-content {
+    flex: 2;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.additional-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.qr-code {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+}
+
+.logo-button {
+    width: 50px;
+    height: 50px;
 }
 
 /* Button container styles */

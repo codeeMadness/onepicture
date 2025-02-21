@@ -31,8 +31,11 @@ pickSystemDesign.addEventListener('click', () => {
 const music = new Music();
 music.play();
 
-const modal = new Modal();
+const modal = new Modal("myModal", document.querySelector('.stack-list'));
 modal.action();
+
+const infoModal = new Modal("myInfo", document.querySelector('.info'));
+infoModal.action();
 
 //copyright
 document.getElementById('currentYear').textContent = new Date().getFullYear();

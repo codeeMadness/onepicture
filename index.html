@@ -15,8 +15,9 @@
     <a class="next">&#10095;</a>
 
     <div class="button">
-        <button class="music-toggle"><i class="fas fa-play" id="music-icon"></i></button>
-        <button class="stack-list"><i class="fas fa-list"></i></button>
+        <button class="menu btn music-toggle"><i class="fas fa-play" id="music-icon"></i></button>
+        <button class="menu btn stack-list"><i class="fas fa-list"></i></button>
+        <button class="menu btn info"><i class="fas fa-info-circle"></i></button>
     </div>
     
     <audio id="backgroundMusic"></audio>
@@ -24,12 +25,35 @@
     <!-- Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="myModal close">&times;</span>
             <h2>Pick Your Topic:</h2>
             <div class="button-container">
                 <button id="java"><span class="blink-text">Java & Spring</button>
                 <button id="system-designs">System Designs</button>
                 <button id="mixed-topics">Mixed Topics</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="myInfo" class="modal">
+        <div class="modal-content">
+            <span class="myInfo close">&times;</span>
+            <h2>About Me</h2>
+            <div class="info-container">
+                <div class="avatar-container">
+                    <img src="./assets/my_avatar.jpg" alt="Avatar" class="avatar">
+                </div>
+                <div class="info-content">
+                    <p>Hello! I'm Hang, a software engineer at <a href="https://www.axonactive.com/">Axon Active</a></p>
+                    <p>And I love technical and drawings...</p>
+                    <p>If you find my art really much help with your technical, then offer me <i class="fas fa-mug-hot"></i> sometimes :)</p>
+                    <div class="additional-links">
+                        <img src="./assets/momo_qr.jpg" alt="QR Code" class="qr-code">
+                        <blockquote style="width: auto; margin: 2%" class="tiktok-embed" cite="https://www.tiktok.com/@codee.madness" data-unique-id="codee.madness" data-embed-type="creator"> <section> <a target="_blank" href="https://www.tiktok.com/@codee.madness?refer=creator_embed">@codee.madness</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+                    </div>
+                    <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/nkmhang/">See my LinkedIn profile</a></p>
+                </div>
             </div>
         </div>
     </div>

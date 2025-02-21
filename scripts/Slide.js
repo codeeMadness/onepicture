@@ -36,6 +36,7 @@ export class Slide {
             let slideDiv = document.createElement('div');
             slideDiv.className = 'slide fade';
             let img = document.createElement('img');
+            img.className = 'img-slide';
             img.src = src;
             img.style.width = '100%';
             slideDiv.appendChild(img);
