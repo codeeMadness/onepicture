@@ -1,32 +1,32 @@
+import { java_arr, mixed, system_design_arr } from './data.js';
 import { Modal } from './Modal.js';
 import { Music } from './Music.js';
 import { Slide } from './Slide.js';
 
-const javaSlides = new Slide("./images/java/", 13);
-javaSlides.createSlides();
-javaSlides.showSlides();
-
-const systemSlides = new Slide("./images/systemdesign/", 4);
-
-const pickJava = document.getElementById("java");
-pickJava.addEventListener('click', () => {
-    javaSlides.createSlides();
-    javaSlides.showSlides();
-});
-
-const pickDesignPatterns = document.getElementById("system-designs");
-pickDesignPatterns.addEventListener('click', () => {
-    systemSlides.createSlides();
-    systemSlides.showSlides();
-});
-
-const mixedTopics = new Slide('',0).addSlide(javaSlides).addSlide(systemSlides);
+//default Slide
+const mixedTopic = new Slide(mixed());
+mixedTopic.createSlides();
+mixedTopic.showSlides();
 const pickMixed = document.getElementById("mixed-topics");
 pickMixed.addEventListener('click', () => {
-    mixedTopics.shuffleArray();
-    mixedTopics.createSlides();
-    mixedTopics.showSlides();
+    mixedTopic.createSlides();
+    mixedTopic.showSlides();
 });
+
+const javaTopic = new Slide(java_arr);
+const pickJava = document.getElementById("java");
+pickJava.addEventListener('click', () => {
+    javaTopic.createSlides();
+    javaTopic.showSlides();
+});
+
+const systemTopic = new Slide(system_design_arr);
+const pickSystemDesign = document.getElementById("system-designs");
+pickSystemDesign.addEventListener('click', () => {
+    systemTopic.createSlides();
+    systemTopic.showSlides();
+});
+
 
 const music = new Music();
 music.play();

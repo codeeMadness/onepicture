@@ -1,11 +1,11 @@
 export class Slide {
-    constructor(path, imageCount) {
-        this.folderPath = path;
+    constructor(imageArr) {
+        this.folderPath = './images/';
         this.slideIndex = 0;
-        this.imageCount = imageCount
+        this.imageArr = imageArr;
         this.images = [];
-        for (let i = 1; i <= this.imageCount; i++) {
-            this.images.push(this.folderPath + 'image' + i + '.png');
+        for (let i = 0; i < this.imageArr.length; i++) {
+            this.images.push(this.folderPath + this.imageArr[i] + '.png');
         }
         this.init();
     }
@@ -28,28 +28,6 @@ export class Slide {
     reset() {
         this.slideshowContainer.innerHTML = "";
         this.slideIndex = 0;
-    }
-
-    getImages() {
-        return this.images;
-    }
-
-    getImageCount() {
-        return this.imageCount;
-    }
-
-    addSlide(slide) {
-        this.images = this.images.concat(slide.getImages());
-        this.imageCount += slide.getImageCount();
-        return this;
-    }
-
-    shuffleArray() {
-        for (let i = this.images.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [this.images[i], this.images[j]] = [this.images[j], this.images[i]];
-        }
-        return this.images;
     }
 
     createSlides() {
