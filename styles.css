@@ -98,26 +98,65 @@ body {
 }
 
 /* Modal styles */
+
+/* Add CSS for responsiveness */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 5% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 80%; /* Could be more or less, depending on screen size */
 }
+
+.avatar-container {
+    text-align: center;
+}
+
+.avatar {
+    width: 20vw;
+    height: 20vw;
+    border-radius: 10%;
+}
+
+.info-container,.additional-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.info-content {
+    margin: 15px;
+}
+
+.qr-code {
+    width: 10vw;
+    height: 10vw;
+}
+
+@media screen and (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+    }
+
+    .info-container,.additional-links {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 
 .close {
     color: #aaa;
@@ -131,47 +170,6 @@ body {
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
-
-.info-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.avatar-container {
-    flex: 1;
-    text-align: left;
-}
-
-.avatar {
-    width: 250px;
-    height: 300px;
-    border-radius: 10%;
-}
-
-.info-content {
-    flex: 2;
-    text-align: left;
-    margin-left: 20px;
-}
-
-.additional-links {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.qr-code {
-    width: 200px;
-    height: 200px;
-    margin-right: 20px;
-}
-
-.logo-button {
-    width: 50px;
-    height: 50px;
 }
 
 /* Button container styles */
