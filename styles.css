@@ -8,6 +8,22 @@ body {
     align-items: center;
 }
 
+.thumbnail-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.thumbnail {
+    margin: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.thumbnail img {
+    width: 100px;
+    height: 200px;
+}
+
 .slideshow-container {
     border-radius: 10px;
     height: 80%;
@@ -82,12 +98,8 @@ body {
     padding: 10px 20px;
 }
 
-.music-toggle {
+.music-toggle, .stack-list, .view-mode {
     margin-bottom: 10%;
-}
-
-.stack-list {
-    margin-bottom: 10%;   
 }
 
 .menu {
@@ -119,6 +131,13 @@ body {
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.image-modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
 }
 
 .avatar-container {
