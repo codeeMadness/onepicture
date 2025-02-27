@@ -1,78 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>One Picture</title>
-    <link rel="icon" href="assets/1_picture.png" type="image/png">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
-<body>
+    <link rel="icon" href="assets/1_picture.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
     <div class="slideshow-container" id="slideshowMode"></div>
 
     <a class="prev">&#10094;</a>
     <a class="next">&#10095;</a>
 
-    <div class="thumbnail-container" id="thumbnailMode" style="display: none;">
-        <!-- Thumbnails will be dynamically generated here -->
+    <div class="thumbnail-container" id="thumbnailMode" style="display: none">
+      <!-- Thumbnails will be dynamically generated here -->
     </div>
 
     <div class="button">
-        <button class="menu btn music-toggle"><i class="fas fa-play" id="music-icon"></i></button>
-        <button class="menu btn view-mode"><i class="fas fa-images" id="view-icon"></i></button>
-        <button class="menu btn stack-list"><i class="fas fa-list"></i></button>
-        <button class="menu btn info"><i class="fas fa-info-circle"></i></button>
+      <button class="menu btn music-toggle">
+        <i class="fas fa-play" id="music-icon"></i>
+      </button>
+      <button class="menu btn view-mode">
+        <i class="fas fa-images" id="view-icon"></i>
+      </button>
+      <button class="menu btn stack-list"><i class="fas fa-list"></i></button>
+      <button class="menu btn info"><i class="fas fa-info-circle"></i></button>
     </div>
-    
+
     <audio id="backgroundMusic"></audio>
 
     <!-- Modal -->
     <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="myModal close">&times;</span>
-            <h2>Pick Your Topic:</h2>
-            <div class="button-container">
-                <button id="java"><span class="blink-text">Java & Spring</button>
-                <button id="system-designs">System Designs</button>
-                <button id="mixed-topics">Mixed Topics</button>
-            </div>
+      <div class="modal-content">
+        <span class="myModal close">&times;</span>
+        <h2>Pick Your Topic:</h2>
+        <div class="button-container">
+          <button id="java">Java</button>
+          <button id="spring">Spring</button>
+          <button id="hibernate">Hibernate</button>
+          <button id="database">
+            Database <span class="blink-text">coming soon</span>
+          </button>
+          <button id="design-patterns">
+            Design Patterns <span class="blink-text">coming soon</span>
+          </button>
+          <button id="system-designs">System Designs</button>
+          <button id="dsa">Data Structure & Algorithm</button>
+          <button id="mixed-topics">Mixed Topics</button>
         </div>
+      </div>
     </div>
 
     <!-- Modal -->
     <div id="myInfo" class="modal">
-        <div class="modal-content">
-            <span class="myInfo close">&times;</span>
-            <h2>About Me</h2>
-            <div class="info-container">
-                <div class="avatar-container">
-                    <img src="./assets/my_avatar.jpg" alt="Avatar" class="avatar">
-                </div>
-                <div class="info-content">
-                    <p>Hello! I'm Hang, a software engineer at <a href="https://www.axonactive.com/">Axon Active</a></p>
-                    <p>And I love technical and doodles...</p>
-                    <p>If you find my doodles really much help with your technical, just donate me <i class="fas fa-mug-hot"></i> sometimes :)</p>
-                    <div class="additional-links">
-                        <img src="./assets/momo_qr.jpg" alt="QR Code" class="qr-code">
-                        <img src="./assets/vcb_qr.jpg" alt="QR Code" class="qr-code">
-                        <blockquote style="width: auto; margin: 2%" class="tiktok-embed" cite="https://www.tiktok.com/@codee.madness" data-unique-id="codee.madness" data-embed-type="creator"> <section> <a target="_blank" href="https://www.tiktok.com/@codee.madness?refer=creator_embed">@codee.madness</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-                    </div>
-                    <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/nkmhang/">See my LinkedIn profile</a></p>
-                </div>
+      <div class="modal-content">
+        <span class="myInfo close">&times;</span>
+        <h2>About Me</h2>
+        <div class="info-container">
+          <div class="avatar-container">
+            <img src="./assets/my_avatar.jpg" alt="Avatar" class="avatar" />
+          </div>
+          <div class="info-content">
+            <p>
+              Hello! I'm Hang, a software engineer at
+              <a href="https://www.axonactive.com/">Axon Active</a>
+            </p>
+            <p>And I love technical and doodles...</p>
+            <p>
+              If you find my doodles really much help with your technical, just
+              donate me <i class="fas fa-mug-hot"></i> sometimes :)
+            </p>
+            <div class="additional-links">
+              <img src="./assets/momo_qr.jpg" alt="QR Code" class="qr-code" />
+              <img src="./assets/vcb_qr.jpg" alt="QR Code" class="qr-code" />
+              <blockquote
+                style="width: auto; margin: 2%"
+                class="tiktok-embed"
+                cite="https://www.tiktok.com/@codee.madness"
+                data-unique-id="codee.madness"
+                data-embed-type="creator"
+              >
+                <section>
+                  <a
+                    target="_blank"
+                    href="https://www.tiktok.com/@codee.madness?refer=creator_embed"
+                    >@codee.madness</a
+                  >
+                </section>
+              </blockquote>
+              <script async src="https://www.tiktok.com/embed.js"></script>
             </div>
+            <p>
+              <i class="fab fa-linkedin"></i>
+              <a href="https://www.linkedin.com/in/nkmhang/"
+                >See my LinkedIn profile</a
+              >
+            </p>
+          </div>
         </div>
+      </div>
     </div>
 
     <div id="fullSizeModal" class="modal">
-        <span class="fullSizeModal close">&times;</span>
-        <img class="image-modal-content" id="fullSizeImage">
+      <span class="fullSizeModal close">&times;</span>
+      <img class="image-modal-content" id="fullSizeImage" />
     </div>
 
     <footer>
-        <p>&copy; <span id="currentYear"></span> One Picture. All rights reserved.</p>
+      <p>
+        &copy; <span id="currentYear"></span> One Picture. All rights reserved.
+      </p>
     </footer>
 
     <script type="module" src="scripts/script.js"></script>
-</body>
+  </body>
 </html>

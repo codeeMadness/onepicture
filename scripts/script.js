@@ -1,41 +1,16 @@
-import { java_arr, mixed, system_design_arr } from './data.js';
+import { database_arr, java_arr, mixed, spring_arr, system_design_arr } from './data.js';
+import { Init } from './Init.js';
 import { Modal } from './Modal.js';
 import { Music } from './Music.js';
-import { Slide } from './Slide.js';
-import { Thumbnail } from './Thumbnail.js';
 import { ViewMode } from './ViewMode.js';
 
-//default Slide
-const mixedTopic = new Slide(mixed());
-mixedTopic.createSlides();
-mixedTopic.showSlides();
-const mixedThumbnail = new Thumbnail(mixed());
-mixedThumbnail.generate();
-const pickMixed = document.getElementById("mixed-topics");
-pickMixed.addEventListener('click', () => {
-    mixedTopic.createSlides();
-    mixedTopic.showSlides();
-    mixedThumbnail.generate();
-});
 
-const javaTopic = new Slide(java_arr);
-const javaThumbnail = new Thumbnail(java_arr);
-const pickJava = document.getElementById("java");
-pickJava.addEventListener('click', () => {
-    javaTopic.createSlides();
-    javaTopic.showSlides();
-    javaThumbnail.generate();
-});
-
-const systemTopic = new Slide(system_design_arr);
-const systemThumbnail = new Thumbnail(system_design_arr);
-const pickSystemDesign = document.getElementById("system-designs");
-pickSystemDesign.addEventListener('click', () => {
-    systemTopic.createSlides();
-    systemTopic.showSlides();
-    systemThumbnail.generate();
-});
-
+const init = new Init();
+init.addSlide(mixed(), 'mixed-topics', true);
+init.addSlide(java_arr, 'java', false);
+init.addSlide(system_design_arr, 'system-designs', false);
+init.addSlide(database_arr, 'database', false);
+init.addSlide(spring_arr, 'spring', false);
 
 const music = new Music();
 music.play();

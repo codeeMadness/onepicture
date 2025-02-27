@@ -1,9 +1,42 @@
-export const java_arr = ['Access Modifiers','ArrayList','Custom Annotations','Equals','Exception','Garbage Collection','How Java Compile','Numeric Promotion','Operator Precedence','Order Execution','Overloading Methods','Spring','Var']
+export const java_arr = [
+    'OOP',
+    'How Java Compile',
+    'Garbage Collection',
+    'Access Modifiers',
+    'Overloading Methods',
+    'ArrayList',
+    'Equals',
+    'Exception',
+    'Var',
+    'Order Execution',
+    'Custom Annotations',
+    'Numeric Promotion',
+    'Operator Precedence',
+]
 
-export const system_design_arr = ['JWT Workflow','SAML Workflow','SOLID','OOP','ACID']
+export const spring_arr = [
+    'Spring',
+    'Component vs Service vs Repository'
+]
+
+export const database_arr = [
+    'ACID',
+
+]
+
+export const system_design_arr = [
+    'SOLID',
+    'JWT Workflow',
+    'SAML Workflow',
+]
 
 export const mixed = () => {
-    const arr = java_arr.concat(system_design_arr);
+    const arr = java_arr
+    .concat(database_arr)
+    .concat(spring_arr)
+    .concat(system_design_arr)
+    ;
+
     return shuffleArray(arr);
 }
 
