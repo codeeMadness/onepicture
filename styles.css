@@ -98,7 +98,7 @@ body {
     padding: 10px 20px;
 }
 
-.music-toggle, .stack-list, .view-mode {
+.music-toggle, .stack-list, .view-mode, .info {
     margin-bottom: 10%;
 }
 
@@ -132,26 +132,19 @@ body {
 .modal-content {
     background-color: #fefefe;
     margin: 5% auto; /* 15% from the top and centered */
-    padding: 20px;
+    padding: 5%;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
 .image-modal-content {
-    margin: auto;
+    margin: 5% auto;
     display: block;
-    width: 80%;
-    max-width: 700px;
+    max-width: 90%;
 }
 
 .avatar-container {
     text-align: center;
-}
-
-.avatar {
-    width: 20vw;
-    height: 20vw;
-    border-radius: 10%;
 }
 
 .info-container,.additional-links {
@@ -164,9 +157,10 @@ body {
     margin: 15px;
 }
 
-.qr-code {
+.qr-code, .avatar {
     width: 20vw;
     height: 20vw;
+    border-radius: 10%;
 }
 
 @media screen and (max-width: 600px) {
@@ -179,7 +173,7 @@ body {
         align-items: center;
     }
 
-    .qr-code {
+    .qr-code, .avatar {
         width: 50vw;
         height: 50vw;
         margin: 2px;

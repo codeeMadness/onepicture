@@ -23,8 +23,8 @@ export class ViewMode {
     }
 
     displayThumbnail() {
-        this.viewIcon.classList.add('fa-grip-horizontal');
-        this.viewIcon.classList.remove('fa-images');
+        this.viewIcon.classList.add('fa-images');
+        this.viewIcon.classList.remove('fa-grip-horizontal');
         this.slideshowMode.style.display = 'none';
         this.thumbnailMode.style.display = 'flex';
         this.prev.style.display = 'none';
@@ -34,8 +34,8 @@ export class ViewMode {
     displaySlide() {
         this.slideshowMode.style.display = 'block';
         this.thumbnailMode.style.display = 'none';
-        this.viewIcon.classList.add('fa-images');
-        this.viewIcon.classList.remove('fa-grip-horizontal');
+        this.viewIcon.classList.add('fa-grip-horizontal');
+        this.viewIcon.classList.remove('fa-images');
         this.prev.style.display = 'block';
         this.next.style.display = 'block';
     }

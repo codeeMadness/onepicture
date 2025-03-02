@@ -21,6 +21,9 @@ modal.action();
 const infoModal = new Modal("myInfo", document.querySelector('.info'));
 infoModal.action();
 
+const feedbackModal = new Modal("myFeedback", document.querySelector('.feedback'));
+feedbackModal.action();
+
 const viewMode = new ViewMode();
 viewMode.toggleViewMode();
 

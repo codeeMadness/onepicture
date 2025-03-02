@@ -26,15 +26,16 @@
         <i class="fas fa-play" id="music-icon"></i>
       </button>
       <button class="menu btn view-mode">
-        <i class="fas fa-images" id="view-icon"></i>
+        <i class="fas fa-grip-horizontal" id="view-icon"></i>
       </button>
-      <button class="menu btn stack-list"><i class="fas fa-list"></i></button>
+      <button class="menu btn stack-list"><i class="fas fa-hand-point-right"></i></button>
       <button class="menu btn info"><i class="fas fa-info-circle"></i></button>
+      <button class="menu btn feedback"><i class="fas fa-comment-dots"></i></button>
     </div>
 
     <audio id="backgroundMusic"></audio>
 
-    <!-- Modal -->
+    <!-- Topic Modal -->
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="myModal close">&times;</span>
@@ -56,7 +57,7 @@
       </div>
     </div>
 
-    <!-- Modal -->
+    <!-- My Info Modal -->
     <div id="myInfo" class="modal">
       <div class="modal-content">
         <span class="myInfo close">&times;</span>
@@ -72,8 +73,13 @@
             </p>
             <p>And I love technical and doodles...</p>
             <p>
-              If you find my doodles really much help with your technical, just
-              donate me <i class="fas fa-mug-hot"></i> sometimes :)
+              If you find my doodles really much useful to you, kindly support me sometimes :)
+            </p>
+            <p>
+              <i class="fab fa-linkedin"></i>
+              <a href="https://www.linkedin.com/in/nkmhang/"
+                >See my LinkedIn profile</a
+              >
             </p>
             <div class="additional-links">
               <img src="./assets/momo_qr.jpg" alt="QR Code" class="qr-code" />
@@ -95,12 +101,7 @@
               </blockquote>
               <script async src="https://www.tiktok.com/embed.js"></script>
             </div>
-            <p>
-              <i class="fab fa-linkedin"></i>
-              <a href="https://www.linkedin.com/in/nkmhang/"
-                >See my LinkedIn profile</a
-              >
-            </p>
+            
           </div>
         </div>
       </div>
@@ -109,6 +110,16 @@
     <div id="fullSizeModal" class="modal">
       <span class="fullSizeModal close">&times;</span>
       <img class="image-modal-content" id="fullSizeImage" />
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="myFeedback" class="modal">
+      <div class="modal-content">
+        <span class="myFeedback close">&times;</span>
+        <div class="info-content">
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeFHTyEVjLTHqiBwNKpFeIZ0jzyjqgTYS6RNr8NFcDo824esQ/viewform?embedded=true" style="width: 100%; height: 80vh;" frameborder="0">Loading...</iframe>
+        </div>
+      </div>
     </div>
 
     <footer>
