@@ -1,4 +1,4 @@
-import { database_arr, java_arr, mixed, spring_arr, system_design_arr } from './data.js';
+import { database_arr, hibernate, java_arr, mixed, spring_arr, system_design_arr } from './data.js';
 import { Init } from './Init.js';
 import { Modal } from './Modal.js';
 import { Music } from './Music.js';
@@ -11,6 +11,7 @@ init.addSlide(java_arr, 'java', false);
 init.addSlide(system_design_arr, 'system-designs', false);
 init.addSlide(database_arr, 'database', false);
 init.addSlide(spring_arr, 'spring', false);
+init.addSlide(hibernate, 'hibernate', false);
 
 const music = new Music();
 music.play();
