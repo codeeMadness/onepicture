@@ -4,6 +4,7 @@ export const java_arr = [
     'Garbage Collection',
     'Access Modifiers',
     'Overloading Methods',
+    'Functional Interface',
     'ArrayList',
     'Equals',
     'Exception',
