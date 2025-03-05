@@ -35,11 +35,17 @@ export const hibernate = [
     'N+1 Problem',
 ]
 
+export const design_pattern_arr = [
+    'Singleton vs Prototype',
+    
+]
+
 export const mixed = () => {
     const arr = java_arr
     .concat(database_arr)
     .concat(spring_arr)
     .concat(system_design_arr)
+    .concat(design_pattern_arr)
     .concat(hibernate)
     ;
 
