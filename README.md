@@ -4,7 +4,6 @@
 JAVA
 - collections and their implementations
 - how stream API works
-- functional programming: consumer, supplier, biconsumer
 
 Spring
 - Bean/Bean Scope
@@ -15,11 +14,10 @@ Spring
 
 Hibernate
 - relationship JDBC, JPA, Hibernate
-- n+1 problem
 - version
 
 Database
-- index
+- 
 
 System Design
 - LRU,
