@@ -21,12 +21,12 @@ Database
 
 System Design
 - LRU,
+- how to reduce latency
 
 Design Patterns
 - Factory Patterns
-- Singleton
 
-Data Structure & Algorithm
+Data Structure & Algorithms
 - Array
 - LinkedList
 - Stack
@@ -34,3 +34,6 @@ Data Structure & Algorithm
 - BinaryTree
 - Slow/Fast Pointers
 - Sliding Window
+
+Microservices
+- Circuit breaker

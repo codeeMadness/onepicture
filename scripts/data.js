@@ -23,6 +23,7 @@ export const spring_arr = [
 export const database_arr = [
     'ACID',
     'Index',
+    'Joins Operator'
 
 ]
 
