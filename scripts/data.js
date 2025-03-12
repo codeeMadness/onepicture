@@ -2,6 +2,7 @@ export const java_arr = [
     'OOP',
     'How Java Compile',
     'Garbage Collection',
+    'Process and Thread',
     'Access Modifiers',
     'Overloading Methods',
     'Functional Interface',
