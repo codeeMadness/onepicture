@@ -6,6 +6,7 @@ export const java_arr = [
     'Access Modifiers',
     'Overloading Methods',
     'Functional Interface',
+    'List Set Map',
     'ArrayList',
     'Equals',
     'Exception',
