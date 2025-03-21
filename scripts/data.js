@@ -33,6 +33,7 @@ export const system_design_arr = [
     'SOLID',
     'JWT Workflow',
     'SAML Workflow',
+    'Event Loop',
 ]
 
 export const hibernate = [
@@ -41,6 +42,7 @@ export const hibernate = [
 
 export const design_pattern_arr = [
     'Singleton vs Prototype',
+    'Decorator Pattern',
     
 ]
 
