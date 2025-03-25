@@ -15,6 +15,7 @@ export const java_arr = [
     'Custom Annotations',
     'Numeric Promotion',
     'Operator Precedence',
+    'Git Merge vs Git Rebase',
 ]
 
 export const spring_arr = [
@@ -25,7 +26,8 @@ export const spring_arr = [
 export const database_arr = [
     'ACID',
     'Index',
-    'Joins Operator'
+    'Joins Operator',
+    'Speed Up SQL Performance'
 
 ]
 
