@@ -1,68 +1,60 @@
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import { Box } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent } from "@mui/material";
+import { useState } from "react";
+import { topics } from "./data/topics";
+import Gallery from "./Gallerry";
 
 export default function Topics() {
-  return (
+  const [selectedCard, setSelectedCard] = useState(-1);
+
+  const handleCardClick = (cardIndex: number) => {
+    setSelectedCard(cardIndex); // Update the selected card state
+  };
+
+  return selectedCard >=0 ? (
+    <Gallery topic={topics[selectedCard].title} /> // Pass the selected topic to Gallery
+  ) : (
     <Box
       sx={{
-        display: "flex",
+        width: "100%",
+        display: "grid",
+        gridTemplateColumns: "repeat(4, 25%)",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh", // Full viewport height
+        gap: 2,
+        padding: "1rem",
       }}
     >
-      <ImageList
-        sx={{ width: '80%' }}
-        variant="woven"
-        cols={4} rowHeight={164}
-      >
-        {topics.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
-              srcSet={`${process.env.PUBLIC_URL}/topics/${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
-              src={`${process.env.PUBLIC_URL}/topics/${item.img}?w=161&fit=crop&auto=format`}
-              alt={item.title}
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      {topics.map((item, index) => (
+        <Card>
+          <CardActionArea
+            onClick={() => handleCardClick(index)}
+            data-active={selectedCard === index ? "" : undefined}
+            sx={{
+              height: "100%",
+              "&[data-active]": {
+                backgroundColor: "action.selected",
+                "&:hover": {
+                  backgroundColor: "action.selectedHover",
+                },
+              },
+            }}
+          >
+            <CardContent>
+              <img
+                style={{
+                  width: "100%", // Define fixed width
+                  height: "100%", // Define fixed height
+                  objectFit: "cover", // Ensures images are cropped appropriately
+                }}
+                srcSet={`${process.env.PUBLIC_URL}/topics/${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
+                src={`${process.env.PUBLIC_URL}/topics/${item.img}?w=161&fit=crop&auto=format`}
+                alt={item.title}
+                loading="lazy"
+              />
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      ))}
     </Box>
   );
 }
-
-const topics = [
-  {
-    img: "java.png",
-    title: "Java",
-  },
-  {
-    img: "spring.png",
-    title: "Spring",
-  },
-  {
-    img: "hibernate.png",
-    title: "Hibernate",
-  },
-  {
-    img: "database.png",
-    title: "Database",
-  },
-  {
-    img: "design pattern.png",
-    title: "Design Patterns",
-  },
-  {
-    img: "system design.png",
-    title: "System Designs",
-  },
-  {
-    img: "microservices.png",
-    title: "Microservices",
-  },
-  {
-    img: "dsa.png",
-    title: "Data Structure & Algorithms",
-  },
-];
