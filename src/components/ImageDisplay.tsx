@@ -1,5 +1,4 @@
-import { Box, Modal, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Modal } from "@mui/material";
 
 const style = {
   position: "absolute",
