@@ -10,11 +10,12 @@ import Feedbacks from './Feedbacks';
 
 export default function MainPage() {
   const [value, setValue] = React.useState(0);
+  const [cardIndex, setCardIndex] = React.useState(-1);
 
   const renderComponent = () => {
     switch (value) {
       case 0:
-        return <Topics />; // Render the Topic component
+        return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>; // Render the Topic component
       case 1:
         return <AboutMe />; // Render the AboutMe component
       case 2:
@@ -33,6 +34,10 @@ export default function MainPage() {
           value={value}
           onChange={(_event, newValue) => {
             setValue(newValue);
+            if (newValue === 0) {
+              setCardIndex(-1); // Reset cardIndex when navigating to Topics
+            }
+
           }}
         >
           <BottomNavigationAction label="Topics" icon={<Toc />} />
