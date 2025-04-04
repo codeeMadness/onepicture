@@ -9,35 +9,32 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { java } from "./data/java";
 import ImageDisplay from "./ImageDisplay";
+import baseUrl from "./data/constant";
 
-export default function Gallery({ topic }: { topic: string }) {
+export default function Gallery({ data }: { data: string[] }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredTopics, setFilteredTopics] = useState(java);
+  const [filteredTopics, setFilteredTopics] = useState<string[]>([]);
   const [open, setOpen] = useState(false); // Modal open state
-  const [selectedImage, setSelectedImage] = useState<string | null>(null); // Selected image URL
-  const [selectedTitle, setSelectedTitle] = useState<string | null>(null); // Selected image title
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const handleOpen = (image: string, title: string) => {
+  const handleOpen = (image: string) => {
     setSelectedImage(image); // Set selected image
-    setSelectedTitle(title); // Set selected title
     setOpen(true); // Open the modal
   };
 
   const handleClose = () => {
     setOpen(false); // Close the modal
     setSelectedImage(null); // Reset the image
-    setSelectedTitle(null); // Reset the title
   };
 
    // Update filtered topics whenever the search query changes
    useEffect(() => {
-    const newFilteredTopics = java.filter((topic) =>
-      topic.title.toLowerCase().includes(searchQuery.toLowerCase())
+    const newFilteredTopics = data.filter((item) =>
+      item.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredTopics(newFilteredTopics); // Update filtered topics state
-  }, [searchQuery]);
+  }, [data, searchQuery]);
 
 
   return (
@@ -68,31 +65,30 @@ export default function Gallery({ topic }: { topic: string }) {
             cols={10} // Specify 4 images per row
             gap={20} // Control spacing between images
           >
-            {filteredTopics.map((item) => {
-              return (
-                <ImageListItem key={item.img}>
+            {filteredTopics.map((item) => (
+             
+                <ImageListItem key={item}>
                   <img
-                    id={topic}
-                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    src={`${item.img}?w=248&fit=crop&auto=format`}
-                    alt={item.title}
+                    srcSet={`${baseUrl}${item.replace(/ /g, "%20")}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    src={`${baseUrl}${item.replace(/ /g, "%20")}.png?w=248&fit=crop&auto=format`}
+                    alt={item}
                     loading="lazy"
                   />
                   <ImageListItemBar
-                    title={item.title}
+                    title={item}
                     actionIcon={
                       <IconButton
                         sx={{ color: "white" }}
-                        aria-label={`info about ${item.title}`}
-                        onClick={() => handleOpen(item.img, item.title)}
+                        aria-label={`info about ${item}`}
+                        onClick={() => handleOpen(item)}
                       >
                         <Visibility />
                       </IconButton>
                     }
                   />
                 </ImageListItem>
-              );
-            })}
+              
+            ))}
           </ImageList>
         ) : (
           <Typography sx={{ textAlign: "center", mt: 2 }}>
@@ -103,7 +99,6 @@ export default function Gallery({ topic }: { topic: string }) {
           open={open}
           handleClose={handleClose}
           selectedImage={selectedImage}
-          title={selectedTitle}
         />
       </Box>
     </>

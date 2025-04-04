@@ -1,0 +1,49 @@
+export const java_arr = [
+    'OOP',
+    'How Java Compile',
+    'Garbage Collection',
+    'Process and Thread',
+    'Access Modifiers',
+    'Overloading Methods',
+    'Functional Interface',
+    'List Set Map',
+    'ArrayList',
+    'Equals',
+    'Exception',
+    'Var',
+    'Order Execution',
+    'Custom Annotations',
+    'Numeric Promotion',
+    'Operator Precedence',
+    'Git Merge vs Git Rebase',
+]
+
+export const spring_arr = [
+    'Spring',
+    'Component vs Service vs Repository'
+]
+
+export const database_arr = [
+    'ACID',
+    'Index',
+    'Joins Operator',
+    'Speed Up SQL Performance'
+
+]
+
+export const system_design_arr = [
+    'SOLID',
+    'JWT Workflow',
+    'SAML Workflow',
+    'Event Loop',
+]
+
+export const hibernate_arr = [
+    'N+1 Problem',
+]
+
+export const design_pattern_arr = [
+    'Singleton vs Prototype',
+    'Decorator Pattern',
+    
+]

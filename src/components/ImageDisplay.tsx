@@ -1,4 +1,5 @@
 import { Box, Modal } from "@mui/material";
+import baseUrl from "./data/constant";
 
 const style = {
   position: "absolute",
@@ -19,14 +20,12 @@ interface ImageDisplayProps {
   open: boolean; // Modal open state
   handleClose: () => void; // Function to close the modal
   selectedImage: string | null; // Image URL to display
-  title: string | null; // Title of the image
 }
 
 export default function ImageDisplay({
   open,
   handleClose,
   selectedImage,
-  title,
 }: ImageDisplayProps) {
   return (
     <Modal
@@ -39,8 +38,8 @@ export default function ImageDisplay({
         {selectedImage && (
           <>
             <img
-              src={selectedImage}
-              alt={title || "Image"}
+              src={`${baseUrl}${selectedImage.replace(/ /g, "%20")}.png`}
+              alt={selectedImage || "Image"}
               style={{ width: "100%", height: "auto" }}
             />
             )

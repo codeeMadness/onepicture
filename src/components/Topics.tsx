@@ -15,7 +15,7 @@ export default function Topics({ selectedCard, setSelectedCard }: TopicsProps) {
 
   return selectedCard >= 0 ? (
     <Gallery
-      topic={topics[selectedCard].title}
+      data={topics[selectedCard].data || []}
     /> // Pass the selected topic to Gallery
   ) : (
     <Box
