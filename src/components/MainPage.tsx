@@ -3,10 +3,11 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
-import { Face5, Feedback, Toc } from '@mui/icons-material';
+import { Face5, Feedback, Timer10Select, Toc } from '@mui/icons-material';
 import Topics from './Topics';
 import AboutMe from './AboutMe';
 import Feedbacks from './Feedbacks';
+import Review from './Review';
 
 export default function MainPage() {
   const [value, setValue] = React.useState(0);
@@ -17,8 +18,10 @@ export default function MainPage() {
       case 0:
         return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>; // Render the Topic component
       case 1:
-        return <AboutMe />; // Render the AboutMe component
+        return <Review />; // Render the Topic component
       case 2:
+        return <AboutMe />; // Render the AboutMe component
+      case 3:
         return <Feedbacks />; // Render the Feedback component
       default:
         return null;
@@ -41,6 +44,7 @@ export default function MainPage() {
           }}
         >
           <BottomNavigationAction label="Topics" icon={<Toc />} />
+          <BottomNavigationAction label="Review" icon={<Timer10Select />} />
           <BottomNavigationAction label="About Me" icon={<Face5 />} />
           <BottomNavigationAction label="Feedback" icon={<Feedback />} />
         </BottomNavigation>
