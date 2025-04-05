@@ -1,24 +1,25 @@
+import { LinkedIn } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 
 export default function AboutMe() {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
         alignItems: "center",
-        padding: "20px",
+        justifyContent: "center",
+        display: "flex",
+        padding: "10%"
       }}
     >
       <Box className="avatar-container" sx={{ marginBottom: "20px" }}>
         <img
-          src="https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/assets/my_avatar.jpg"
+          src="https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/assets/4p_avatar.jpg"
           alt="Avatar"
           className="avatar"
-          style={{ borderRadius: "50%", width: "150px", height: "150px" }}
+          style={{ borderRadius: "10%", width: "150px", height: "180px" }}
         />
       </Box>
-      <Box className="info-content" sx={{ textAlign: "center" }}>
+      <Box className="info-content" sx={{ textAlign: "center", padding: "1rem" }}>
         <Typography variant="body1" sx={{ marginBottom: "10px" }}>
           Hello! I'm Hang, a software engineer at{" "}
           <a href="https://www.axonactive.com/">Axon Active</a>
@@ -31,7 +32,7 @@ export default function AboutMe() {
           sometimes :)
         </Typography> */}
         <Typography variant="body1" sx={{ marginBottom: "10px" }}>
-          <i className="fab fa-linkedin"></i>{" "}
+          <LinkedIn />
           <a href="https://www.linkedin.com/in/nkmhang/">
             See my LinkedIn profile
           </a>
@@ -49,6 +50,7 @@ export default function AboutMe() {
             className="qr-code"
             style={{ width: "100px" }}
           /> */}
+          <Typography>Tiktok</Typography>
           <blockquote
             style={{ width: "auto", margin: "2%" }}
             className="tiktok-embed"

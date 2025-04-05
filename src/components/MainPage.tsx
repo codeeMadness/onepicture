@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
-import { Face5, Feedback, Timer10Select, Toc } from '@mui/icons-material';
+import { Bolt, Face5, Feedback, Toc } from '@mui/icons-material';
 import Topics from './Topics';
 import AboutMe from './AboutMe';
 import Feedbacks from './Feedbacks';
@@ -44,7 +44,7 @@ export default function MainPage() {
           }}
         >
           <BottomNavigationAction label="Topics" icon={<Toc />} />
-          <BottomNavigationAction label="Review" icon={<Timer10Select />} />
+          <BottomNavigationAction label="Review" icon={<Bolt />} />
           <BottomNavigationAction label="About Me" icon={<Face5 />} />
           <BottomNavigationAction label="Feedback" icon={<Feedback />} />
         </BottomNavigation>
