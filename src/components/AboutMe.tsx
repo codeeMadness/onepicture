@@ -1,5 +1,5 @@
-import { LinkedIn } from "@mui/icons-material";
-import { Box, Typography } from "@mui/material";
+import { LinkedIn, MusicNote, YouTube } from "@mui/icons-material";
+import { Box, Button, Typography } from "@mui/material";
 
 export default function AboutMe() {
   return (
@@ -8,66 +8,83 @@ export default function AboutMe() {
         alignItems: "center",
         justifyContent: "center",
         display: "flex",
-        padding: "10%"
+        padding: "10%",
       }}
     >
-      <Box className="avatar-container" sx={{ marginBottom: "20px" }}>
+      <Box className="avatar-container">
         <img
           src="https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/assets/4p_avatar.jpg"
           alt="Avatar"
           className="avatar"
-          style={{ borderRadius: "10%", width: "150px", height: "180px" }}
+          style={{ borderRadius: "10%", width: "15vw", height: "32vh" }}
         />
       </Box>
-      <Box className="info-content" sx={{ textAlign: "center", padding: "1rem" }}>
-        <Typography variant="body1" sx={{ marginBottom: "10px" }}>
+      <Box
+        className="info-content"
+        sx={{ padding: "1rem" }}
+      >
+        <Typography variant="body1">
           Hello! I'm Hang, a software engineer at{" "}
           <a href="https://www.axonactive.com/">Axon Active</a>
         </Typography>
-        <Typography variant="body1" sx={{ marginBottom: "10px" }}>
+        <Typography variant="body1">
           And I love technical and doodles...
         </Typography>
-        {/* <Typography variant="body1" sx={{ marginBottom: "10px" }}>
-          If you find my doodles really much useful to you, kindly support me
-          sometimes :)
-        </Typography> */}
-        <Typography variant="body1" sx={{ marginBottom: "10px" }}>
-          <LinkedIn />
-          <a href="https://www.linkedin.com/in/nkmhang/">
-            See my LinkedIn profile
-          </a>
-        </Typography>
-        <Box className="additional-links" sx={{ marginTop: "20px" }}>
-          {/* <img
+        <Box
+          display="flex"
+          flexDirection="row" // Horizontal for small screens, vertical for large
+          gap="1rem" // Adds space between buttons
+        >
+          <Button
+            variant="outlined"
+            startIcon={<LinkedIn />}
+            onClick={() =>
+              window.open("https://www.linkedin.com/in/nkmhang/", "_blank")
+            }
+          >
+            My LinkedIn
+          </Button>
+
+          <Button
+            color="error"
+            variant="outlined"
+            startIcon={<YouTube />}
+            onClick={() =>
+              window.open("https://www.youtube.com/@codee.madness", "_blank")
+            }
+          >
+            My Youtube
+          </Button>
+
+          <Button
+            color="inherit"
+            variant="outlined"
+            startIcon={<MusicNote />}
+            onClick={() =>
+              window.open("https://www.tiktok.com/@codee.madness", "_blank")
+            }
+          >
+            My Tiktok
+          </Button>
+        </Box>
+
+        <Box className="additional-links" alignItems="center">
+          <Typography variant="body1">
+            If you find my doodles really much useful to you, kindly support me
+            sometimes :)
+          </Typography>
+          <img
             src="https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/assets/momo_qr.jpg"
             alt="QR Code"
             className="qr-code"
-            style={{ width: "100px", marginRight: "10px" }}
+            style={{ borderRadius: "10%", width: "10vw", height: "15vh" }}
           />
-          <img
+          {/* <img
             src="https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/assets/vcb_qr.jpg"
             alt="QR Code"
             className="qr-code"
-            style={{ width: "100px" }}
+            style={{ borderRadius: "10%", width: "10vw", height: "25vh" }}
           /> */}
-          <Typography>Tiktok</Typography>
-          <blockquote
-            style={{ width: "auto", margin: "2%" }}
-            className="tiktok-embed"
-            cite="https://www.tiktok.com/@codee.madness"
-            data-unique-id="codee.madness"
-            data-embed-type="creator"
-          >
-            <section>
-              <a
-                target="_blank" rel="noreferrer"
-                href="https://www.tiktok.com/@codee.madness?refer=creator_embed"
-              >
-                @codee.madness
-              </a>
-            </section>
-          </blockquote>
-          <script async src="https://www.tiktok.com/embed.js"></script>
         </Box>
       </Box>
     </Box>

@@ -92,7 +92,7 @@ export default function Gallery({ data }: { data: string[] }) {
           </ImageList>
         ) : (
           <Typography sx={{ textAlign: "center", mt: 2 }}>
-            No results found for "{searchQuery}"
+            No results found!
           </Typography>
         )}
         <ImageDisplay
