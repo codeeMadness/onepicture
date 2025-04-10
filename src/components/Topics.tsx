@@ -22,7 +22,12 @@ export default function Topics({ selectedCard, setSelectedCard }: TopicsProps) {
       sx={{
         width: "100%",
         display: "grid",
-        gridTemplateColumns: "repeat(4, 25%)",
+        gridTemplateColumns: {
+          xs: "repeat(1, 1fr)", // 1 column on extra-small screens (phones)
+          sm: "repeat(2, 1fr)", // 2 columns on small screens (tablets)
+          md: "repeat(3, 1fr)", // 3 columns on medium screens
+          lg: "repeat(4, 1fr)", // 4 columns on large screens (web browsers)
+        },
         justifyContent: "center",
         alignItems: "center",
         gap: 2,
