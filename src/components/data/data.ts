@@ -40,10 +40,16 @@ export const system_design_arr = [
 
 export const hibernate_arr = [
     'N+1 Problem',
+    'Hibernate Cache',
 ]
 
 export const design_pattern_arr = [
     'Singleton vs Prototype',
     'Decorator Pattern',
+    
+]
+
+export const dsa_arr = [
+    'BigO Computing',
     
 ]

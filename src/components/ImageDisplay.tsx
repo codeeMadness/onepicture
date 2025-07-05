@@ -42,7 +42,6 @@ export default function ImageDisplay({
               alt={selectedImage || "Image"}
               style={{ width: "100%", height: "auto" }}
             />
-            )
           </>
         )}
       </Box>
