@@ -1,14 +1,19 @@
 import { LinkedIn, MusicNote, YouTube } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 export default function AboutMe() {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       sx={{
         alignItems: "center",
         justifyContent: "center",
         display: "flex",
-        padding: "10%",
+        flexDirection: isSmallScreen ? "column" : "row",
+        padding: isSmallScreen ? "5%" : "10%",
+        gap: isSmallScreen ? "2rem" : "0",
       }}
     >
       <Box className="avatar-container">
@@ -16,12 +21,19 @@ export default function AboutMe() {
           src="https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/assets/4p_avatar.jpg"
           alt="Avatar"
           className="avatar"
-          style={{ borderRadius: "10%", width: "15vw", height: "32vh" }}
+          style={{
+            borderRadius: "10%",
+            width: isSmallScreen ? "40vw" : "15vw",
+            height: isSmallScreen ? "auto" : "32vh",
+          }}
         />
       </Box>
       <Box
         className="info-content"
-        sx={{ padding: "1rem" }}
+        sx={{
+          padding: isSmallScreen ? "0.5rem" : "1rem",
+          textAlign: isSmallScreen ? "center" : "left",
+        }}
       >
         <Typography variant="body1">
           Hello! I'm Hang, a software engineer at{" "}
@@ -32,8 +44,9 @@ export default function AboutMe() {
         </Typography>
         <Box
           display="flex"
-          flexDirection="row" // Horizontal for small screens, vertical for large
-          gap="1rem" // Adds space between buttons
+          flexDirection={isSmallScreen ? "column" : "row"}
+          gap="1rem"
+          justifyContent="center"
         >
           <Button
             variant="outlined"
@@ -68,7 +81,14 @@ export default function AboutMe() {
           </Button>
         </Box>
 
-        <Box className="additional-links" alignItems="center">
+        <Box
+          className="additional-links"
+          sx={{
+            alignItems: "center",
+            marginTop: "1rem",
+            textAlign: isSmallScreen ? "center" : "left",
+          }}
+        >
           <Typography variant="body1">
             If you find my doodles really much useful to you, kindly support me
             sometimes :)
@@ -77,14 +97,12 @@ export default function AboutMe() {
             src="https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/assets/momo_qr.jpg"
             alt="QR Code"
             className="qr-code"
-            style={{ borderRadius: "10%", width: "10vw", height: "15vh" }}
+            style={{
+              borderRadius: "10%",
+              width: isSmallScreen ? "30vw" : "10vw",
+              height: isSmallScreen ? "auto" : "15vh",
+            }}
           />
-          {/* <img
-            src="https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/assets/vcb_qr.jpg"
-            alt="QR Code"
-            className="qr-code"
-            style={{ borderRadius: "10%", width: "10vw", height: "25vh" }}
-          /> */}
         </Box>
       </Box>
     </Box>

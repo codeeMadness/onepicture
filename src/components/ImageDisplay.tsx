@@ -1,4 +1,4 @@
-import { Box, Modal } from "@mui/material";
+import { Box, Modal, useMediaQuery, useTheme } from "@mui/material";
 import baseUrl from "./data/constant";
 
 const style = {
@@ -27,6 +27,10 @@ export default function ImageDisplay({
   handleClose,
   selectedImage,
 }: ImageDisplayProps) {
+
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Modal
       open={open}
@@ -34,7 +38,12 @@ export default function ImageDisplay({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={{
+        ...style,
+        width: isXs ? "90vw" : "50vw", // Adjust width for mobile
+        height: isXs ? "80vh" : "90vh", // Adjust height for mobile
+        p: isXs ? 2 : 4, // Adjust padding for mobile
+      }}>
         {selectedImage && (
           <>
             <img

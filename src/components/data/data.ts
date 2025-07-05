@@ -3,9 +3,11 @@ export const java_arr = [
     'How Java Compile',
     'Garbage Collection',
     'Process and Thread',
+    'Thread Pool',
     'Access Modifiers',
     'Overloading Methods',
     'Functional Interface',
+    'Stream API',
     'List Set Map',
     'ArrayList',
     'Equals',
@@ -41,6 +43,7 @@ export const system_design_arr = [
 export const hibernate_arr = [
     'N+1 Problem',
     'Hibernate Cache',
+    'Race Condition',
 ]
 
 export const design_pattern_arr = [
