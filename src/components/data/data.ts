@@ -56,3 +56,8 @@ export const dsa_arr = [
     'BigO Computing',
     
 ]
+
+export const leetcode_arr = [
+    'Arrays Hashing P1',
+    
+]

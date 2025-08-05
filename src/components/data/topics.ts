@@ -1,4 +1,4 @@
-import { database_arr, design_pattern_arr, dsa_arr, hibernate_arr, java_arr, spring_arr, system_design_arr } from "./data";
+import { database_arr, design_pattern_arr, dsa_arr, hibernate_arr, java_arr, leetcode_arr, spring_arr, system_design_arr } from "./data";
 
 export const topics = [
     {
@@ -39,5 +39,10 @@ export const topics = [
       img: "dsa.png",
       title: "Data Structure & Algorithms",
       data: dsa_arr
+    },
+    {
+      img: "leetcode.png",
+      title: "Practice Leet Code",
+      data: leetcode_arr
     },
   ];
