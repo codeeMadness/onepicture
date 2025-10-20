@@ -44,12 +44,13 @@ export const hibernate_arr = [
     'N+1 Problem',
     'Hibernate Cache',
     'Race Condition',
+    'Nested Transactional'
 ]
 
 export const design_pattern_arr = [
     'Singleton vs Prototype',
     'Decorator Pattern',
-    
+    'RestAPI Best Practices'
 ]
 
 export const dsa_arr = [
