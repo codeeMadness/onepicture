@@ -1,27 +1,19 @@
-import { Visibility } from "@mui/icons-material";
+import { CrueltyFree } from "@mui/icons-material";
 import {
   Box,
-  IconButton,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
+  Divider,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   TextField,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import ImageDisplay from "./ImageDisplay";
-import baseUrl from "./data/constant";
 
-import { useMediaQuery, useTheme } from "@mui/material";
+export default function Gallery({ topic, data }: { topic: string, data: string[] }) {
 
-export default function Gallery({ data }: { data: string[] }) {
-  const theme = useTheme();
-  const isXs = useMediaQuery(theme.breakpoints.down("sm"));
-  const isSm = useMediaQuery(theme.breakpoints.between("sm", "md"));
-  const isMd = useMediaQuery(theme.breakpoints.between("md", "lg"));
-  const isLg = useMediaQuery(theme.breakpoints.up("lg"));
-
-  const columns = isXs ? 1 : isSm ? 2 : isMd ? 3 : isLg ? 4 : 1; // Determine columns based on screen size
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredTopics, setFilteredTopics] = useState<string[]>([]);
   const [open, setOpen] = useState(false); // Modal open state
@@ -45,58 +37,45 @@ export default function Gallery({ data }: { data: string[] }) {
     setFilteredTopics(newFilteredTopics); // Update filtered topics state
   }, [data, searchQuery]);
 
-
   return (
     <>
       {/* Search Bar */}
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box sx={{ display: "block", justifyContent: "center", position: "sticky", top: 0, left: 0, zIndex: 1000, bgcolor: "background.paper",}}>
+        <Typography variant="h3" sx={{marginLeft: 2}}>{topic}</Typography>
         <TextField
           variant="outlined"
           label="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)} // Update search query dynamically
           sx={{
-            mt: 3, // Add margin/padding top
-            width: "30%", // Reduce the width to make it smaller
+            margin: 2, // Add margin/padding top
+            width: "90%", // Reduce the width to make it smaller
           }}
         />
       </Box>
       <Box
         sx={{
-          display: "flex",
           justifyContent: "center",
           alignItems: "center",
           padding: "1rem",
         }}
       >
         {filteredTopics.length > 0 ? (
-          <ImageList
-            cols={columns} // Dynamically set the number of columns
-            gap={20} // Control spacing between images
-          >
+          <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
             {filteredTopics.map((item) => (
-              <ImageListItem key={item}>
-                <img
-                  srcSet={`${baseUrl}${item.replace(/ /g, "%20")}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  src={`${baseUrl}${item.replace(/ /g, "%20")}.png?w=248&fit=crop&auto=format`}
-                  alt={item}
-                  loading="lazy"
-                />
-                <ImageListItemBar
-                  title={item}
-                  actionIcon={
-                    <IconButton
-                      sx={{ color: "white" }}
-                      aria-label={`info about ${item}`}
-                      onClick={() => handleOpen(item)}
-                    >
-                      <Visibility />
-                    </IconButton>
-                  }
-                />
-              </ImageListItem>
+              <>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => handleOpen(item)}>
+                    <ListItemIcon>
+                      <CrueltyFree />
+                    </ListItemIcon>
+                    <ListItemText primary={item} />
+                  </ListItemButton>
+                </ListItem>
+                <Divider />
+              </>
             ))}
-          </ImageList>
+          </Box>
         ) : (
           <Typography sx={{ textAlign: "center", mt: 2 }}>
             No results found!

@@ -16,18 +16,6 @@ export default function AboutMe() {
         gap: isSmallScreen ? "2rem" : "0",
       }}
     >
-      <Box className="avatar-container">
-        <img
-          src="https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/assets/4p_avatar.jpg"
-          alt="Avatar"
-          className="avatar"
-          style={{
-            borderRadius: "10%",
-            width: isSmallScreen ? "40vw" : "15vw",
-            height: isSmallScreen ? "auto" : "32vh",
-          }}
-        />
-      </Box>
       <Box
         className="info-content"
         sx={{
@@ -40,7 +28,7 @@ export default function AboutMe() {
           <a href="https://www.axonactive.com/">Axon Active</a>
         </Typography>
         <Typography variant="body1">
-          And I love technical and doodles...
+          And I love both technical and doodles...
         </Typography>
         <Box
           display="flex"
@@ -81,7 +69,7 @@ export default function AboutMe() {
           </Button>
         </Box>
 
-        <Box
+        {/* <Box
           className="additional-links"
           sx={{
             alignItems: "center",
@@ -103,7 +91,7 @@ export default function AboutMe() {
               height: isSmallScreen ? "auto" : "15vh",
             }}
           />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
