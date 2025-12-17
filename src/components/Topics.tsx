@@ -8,7 +8,10 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { topics } from "./data/topics";
+import { useEffect, useState } from "react";
+import fetchApi, { url } from "../api";
+import { Topic } from "./data/topics";
+
 import Gallery from "./Gallerry";
 
 interface TopicsProps {
@@ -17,23 +20,32 @@ interface TopicsProps {
 }
 
 export default function Topics({ selectedCard, setSelectedCard }: TopicsProps) {
+
+  const [topics, setTopics] = useState<Topic[]>([]);
+
+  useEffect(() => {
+    fetchApi<Topic[]>(url("/topics")).then(res => {
+      setTopics(res.data || [])
+    })
+  },[])
+
   const handleCardClick = (cardIndex: number): void => {
     setSelectedCard(cardIndex); // Update the state in parent
   };
 
   return selectedCard >= 0 ? (
-    <Gallery topic={topics[selectedCard].title} data={topics[selectedCard].data || []} /> // Pass the selected topic to Gallery
+    <Gallery topic={topics[selectedCard]} /> // Pass the selected topic to Gallery
   ) : (
     <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
       <List>
-        {topics.map((item, index) => (
+        {topics && topics.map((item, index) => (
           <>
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleCardClick(index)}>
                 <ListItemIcon>
                   <FlutterDash />
                 </ListItemIcon>
-                <ListItemText primary={item.title} />
+                <ListItemText primary={item.name} />
               </ListItemButton>
             </ListItem>
             <Divider />

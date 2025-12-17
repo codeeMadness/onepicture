@@ -62,3 +62,13 @@ export const leetcode_arr = [
     'Arrays Hashing P1',
     
 ]
+
+export interface Picture {
+    id: string;
+    priority: number;
+    name: string;
+    status: string;
+    topicId: string;
+    url: string;
+    views: number;
+  }

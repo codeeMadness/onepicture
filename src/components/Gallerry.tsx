@@ -10,14 +10,25 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import fetchApi, { url } from "../api";
+import { Picture } from "./data/data";
+import { Topic } from "./data/topics";
 import ImageDisplay from "./ImageDisplay";
 
-export default function Gallery({ topic, data }: { topic: string, data: string[] }) {
+export default function Gallery({ topic }: { topic: Topic }) {
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredTopics, setFilteredTopics] = useState<string[]>([]);
+  const [filteredTopics, setFilteredTopics] = useState<Picture[]>([]);
   const [open, setOpen] = useState(false); // Modal open state
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [data, setData] = useState<Picture[]>([]);
+
+  useEffect(() => {
+    fetchApi<Picture[]>(url("/images"), { method: "POST", body: JSON.stringify({topic_id: topic.id})})
+      .then(res => {
+        setData(res.data || [])
+      })
+  },[topic.id])
 
   const handleOpen = (image: string) => {
     setSelectedImage(image); // Set selected image
@@ -32,7 +43,7 @@ export default function Gallery({ topic, data }: { topic: string, data: string[]
   // Update filtered topics whenever the search query changes
   useEffect(() => {
     const newFilteredTopics = data.filter((item) =>
-      item.toLowerCase().includes(searchQuery.toLowerCase())
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredTopics(newFilteredTopics); // Update filtered topics state
   }, [data, searchQuery]);
@@ -41,7 +52,7 @@ export default function Gallery({ topic, data }: { topic: string, data: string[]
     <>
       {/* Search Bar */}
       <Box sx={{ display: "block", justifyContent: "center", position: "sticky", top: 0, left: 0, zIndex: 1000, bgcolor: "background.paper",}}>
-        <Typography variant="h3" sx={{marginLeft: 2}}>{topic}</Typography>
+        <Typography variant="h3" sx={{marginLeft: 2}}>{topic.name}</Typography>
         <TextField
           variant="outlined"
           label="Search..."
@@ -65,11 +76,11 @@ export default function Gallery({ topic, data }: { topic: string, data: string[]
             {filteredTopics.map((item) => (
               <>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={() => handleOpen(item)}>
+                  <ListItemButton onClick={() => handleOpen(item.url)}>
                     <ListItemIcon>
                       <CrueltyFree />
                     </ListItemIcon>
-                    <ListItemText primary={item} />
+                    <ListItemText primary={item.name} />
                   </ListItemButton>
                 </ListItem>
                 <Divider />

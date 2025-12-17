@@ -46,3 +46,10 @@ export const topics = [
       data: leetcode_arr
     },
   ];
+
+export interface Topic {
+  id: string;
+  priority: number;
+  name: string;
+  status: string;
+}
