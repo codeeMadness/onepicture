@@ -18,18 +18,15 @@ export interface ApiResponse<T> {
 }
 
 // Abstract fetch function
-async function fetchApi<T>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
+async function fetchApi<T>(url: string, options?: RequestInit): Promise<T> {
   try {
     const response = await fetch(url, { headers: { "Content-Type": "application/json", ...(options?.headers || {}), }, ...options, });
-
-    if (!response.ok) {
-      return { data: null, error: `Error: ${response.status} ${response.statusText}` };
-    }
-
     const data: T = await response.json();
-    return { data, error: null };
+    return data;
+
   } catch (err) {
-    return { data: null, error: (err as Error).message };
+      console.log('error', err)
+      throw err
   }
 }
 

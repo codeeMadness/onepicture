@@ -1,6 +1,7 @@
 import { FlutterDash } from "@mui/icons-material";
 import {
   Box,
+  CircularProgress,
   Divider,
   List,
   ListItem,
@@ -8,8 +9,9 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import fetchApi, { url } from "../api";
+import { useQuery } from "@tanstack/react-query";
+import { Fragment } from "react";
+import fetchApi, { ApiResponse, url } from "../api";
 import { Topic } from "./data/topics";
 
 import Gallery from "./Gallerry";
@@ -21,35 +23,37 @@ interface TopicsProps {
 
 export default function Topics({ selectedCard, setSelectedCard }: TopicsProps) {
 
-  const [topics, setTopics] = useState<Topic[]>([]);
-
-  useEffect(() => {
-    fetchApi<Topic[]>(url("/topics")).then(res => {
-      setTopics(res.data || [])
-    })
-  },[])
-
   const handleCardClick = (cardIndex: number): void => {
     setSelectedCard(cardIndex); // Update the state in parent
   };
 
+  const { data: topics , isLoading } = useQuery({ 
+    queryKey: ['topics'], 
+    queryFn: async () => {
+      const res = await fetchApi<ApiResponse<Topic[]>>(url("/topics"));
+      return Array.isArray(res.data) ? res.data : [];
+    }    
+  });
+
+  if (isLoading) return <CircularProgress />;
+
   return selectedCard >= 0 ? (
-    <Gallery topic={topics[selectedCard]} /> // Pass the selected topic to Gallery
+    <Gallery topic={topics ? topics[selectedCard] : null} /> // Pass the selected topic to Gallery
   ) : (
     <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
       <List>
-        {topics && topics.map((item, index) => (
-          <>
+        {Array.isArray(topics) && topics.sort((a, b) => a.Priority - b.Priority).map((item, index) => (
+          <Fragment key={item.ID}>
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleCardClick(index)}>
                 <ListItemIcon>
                   <FlutterDash />
                 </ListItemIcon>
-                <ListItemText primary={item.name} />
+                <ListItemText primary={item.Name} />
               </ListItemButton>
             </ListItem>
             <Divider />
-          </>
+          </Fragment>
         ))}
       </List>
     </Box>

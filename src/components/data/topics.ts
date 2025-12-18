@@ -48,8 +48,8 @@ export const topics = [
   ];
 
 export interface Topic {
-  id: string;
-  priority: number;
-  name: string;
-  status: string;
+  ID: string;
+  Priority: number;
+  Name: string;
+  Status: string;
 }

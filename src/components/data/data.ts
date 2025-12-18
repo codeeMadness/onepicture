@@ -64,11 +64,11 @@ export const leetcode_arr = [
 ]
 
 export interface Picture {
-    id: string;
-    priority: number;
-    name: string;
-    status: string;
-    topicId: string;
-    url: string;
-    views: number;
+    ID: string;
+    Priority: number;
+    Name: string;
+    Status: string;
+    TopicID: string;
+    URL: string;
+    Views: number;
   }

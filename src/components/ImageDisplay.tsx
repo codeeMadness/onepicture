@@ -1,5 +1,9 @@
-import { Box, Modal, useMediaQuery, useTheme } from "@mui/material";
+import { Close } from "@mui/icons-material";
+import { Box, IconButton, Modal, useMediaQuery, useTheme } from "@mui/material";
+import { useEffect } from "react";
+import fetchApi, { ApiResponse, url } from "../api";
 import baseUrl from "./data/constant";
+import { Picture } from "./data/data";
 
 const style = {
   position: "absolute",
@@ -19,7 +23,7 @@ const style = {
 interface ImageDisplayProps {
   open: boolean; // Modal open state
   handleClose: () => void; // Function to close the modal
-  selectedImage: string | null; // Image URL to display
+  selectedImage: Picture | null; // Image URL to display
 }
 
 export default function ImageDisplay({
@@ -44,11 +48,18 @@ export default function ImageDisplay({
         height: isXs ? "80vh" : "90vh", // Adjust height for mobile
         p: isXs ? 2 : 4, // Adjust padding for mobile
       }}>
+        {/* Close button */}
+        <IconButton aria-label="close" 
+          onClick={handleClose} 
+          sx={{ position: "absolute", right: 8, top: 8, color: (theme) => theme.palette.grey[500],}}
+        >
+          <Close />
+        </IconButton>
         {selectedImage && (
           <>
             <img
-              src={`${baseUrl}${selectedImage.replace(/ /g, "%20")}.png`}
-              alt={selectedImage || "Image"}
+              src={`${baseUrl}${selectedImage.URL.replace(/ /g, "%20")}.png`}
+              alt={selectedImage.Name || "Image"}
               style={{ width: "100%", height: "auto" }}
             />
           </>
