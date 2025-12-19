@@ -10,7 +10,7 @@ import Feedbacks from './Feedbacks';
 
 export default function MainPage() {
   const [value, setValue] = React.useState(0);
-  const [cardIndex, setCardIndex] = React.useState(-1);
+  const [cardIndex, setCardIndex] = React.useState("");
 
   const renderComponent = () => {
     switch (value) {
@@ -37,7 +37,7 @@ export default function MainPage() {
           onChange={(_event, newValue) => {
             setValue(newValue);
             if (newValue === 0) {
-              setCardIndex(-1); // Reset cardIndex when navigating to Topics
+              setCardIndex(""); // Reset cardIndex when navigating to Topics
             }
 
           }}

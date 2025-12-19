@@ -15,16 +15,17 @@ import fetchApi, { ApiResponse, url } from "../api";
 import { Topic } from "./data/topics";
 
 import Gallery from "./Gallerry";
+import LoadingIndicator from "./LoadingIndicator";
 
 interface TopicsProps {
-  selectedCard: number; // Value passed from parent
-  setSelectedCard: React.Dispatch<React.SetStateAction<number>>; // Function to update selectedCard in parent
+  selectedCard: string; // Value passed from parent
+  setSelectedCard: React.Dispatch<React.SetStateAction<string>>; // Function to update selectedCard in parent
 }
 
 export default function Topics({ selectedCard, setSelectedCard }: TopicsProps) {
 
-  const handleCardClick = (cardIndex: number): void => {
-    setSelectedCard(cardIndex); // Update the state in parent
+  const handleCardClick = (topidId: string): void => {
+    setSelectedCard(topidId); // Update the state in parent
   };
 
   const { data: topics , isLoading } = useQuery({ 
@@ -35,17 +36,17 @@ export default function Topics({ selectedCard, setSelectedCard }: TopicsProps) {
     }    
   });
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading) return <LoadingIndicator />;
 
-  return selectedCard >= 0 ? (
-    <Gallery topic={topics ? topics[selectedCard] : null} /> // Pass the selected topic to Gallery
+  return selectedCard.length > 0 ? (
+    <Gallery topic={topics?.find(t => t.ID == selectedCard) ?? null} /> // Pass the selected topic to Gallery
   ) : (
     <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
       <List>
         {Array.isArray(topics) && topics.sort((a, b) => a.Priority - b.Priority).map((item, index) => (
           <Fragment key={item.ID}>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleCardClick(index)}>
+              <ListItemButton onClick={() => handleCardClick(item.ID)}>
                 <ListItemIcon>
                   <FlutterDash />
                 </ListItemIcon>

@@ -1,7 +1,6 @@
 import { CrueltyFree, Visibility } from "@mui/icons-material";
 import {
   Box,
-  CircularProgress,
   Divider,
   ListItem,
   ListItemButton,
@@ -16,16 +15,17 @@ import fetchApi, { ApiResponse, url } from "../api";
 import { Picture } from "./data/data";
 import { Topic } from "./data/topics";
 import ImageDisplay from "./ImageDisplay";
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function Gallery({ topic }: { topic: Topic | null }) {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredTopics, setFilteredTopics] = useState<Picture[]>([]);
-  const [open, setOpen] = useState(false); // Modal open state
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<Picture | null>(null);
 
   const { data: pictures , isLoading, refetch } = useQuery({ 
-    queryKey: ['images'],
+    queryKey: ['images', topic?.ID],
     queryFn: async () => {
       const res = await fetchApi<ApiResponse<Picture[]>>(url("/images"), { method: "POST", body: JSON.stringify({topic_id: topic ? topic.ID : ''})});
       return Array.isArray(res.data) ? res.data : [];
@@ -34,13 +34,13 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
 
   const handleOpen = (image: Picture) => {
     setSelectedImage(image); // Set selected image
-    setOpen(true); // Open the modal
+    setDrawerOpen(true);
 
     fetchApi<ApiResponse<Picture>>(url("/image/view"), { method: "POST", body: JSON.stringify({image_id: image.ID})}).then(() => refetch())
   };
 
   const handleClose = () => {
-    setOpen(false); // Close the modal
+    setDrawerOpen(false);
     setSelectedImage(null); // Reset the image
   };
 
@@ -55,7 +55,7 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
 
   }, [pictures, searchQuery]);
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading) return <LoadingIndicator />;
 
   return (
     <>
@@ -107,12 +107,12 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
             No results found!
           </Typography>
         )}
-        <ImageDisplay
-          open={open}
-          handleClose={handleClose}
-          selectedImage={selectedImage}
-        />
       </Box>
+      <ImageDisplay
+        open={drawerOpen}
+        handleClose={handleClose}
+        selectedImage={selectedImage}
+      />
     </>
   );
 }

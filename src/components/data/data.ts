@@ -71,4 +71,5 @@ export interface Picture {
     TopicID: string;
     URL: string;
     Views: number;
-  }
+    Prompt: string | null;
+}
