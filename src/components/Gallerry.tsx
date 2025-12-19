@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { Fragment, useEffect, useState } from "react";
-import fetchApi, { ApiResponse, url } from "../api";
+import fetchApi, { ApiResponse } from "../api";
 import { Picture } from "./data/data";
 import { Topic } from "./data/topics";
 import ImageDisplay from "./ImageDisplay";
@@ -27,7 +27,7 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
   const { data: pictures , isLoading, refetch } = useQuery({ 
     queryKey: ['images', topic?.ID],
     queryFn: async () => {
-      const res = await fetchApi<ApiResponse<Picture[]>>(url("/images"), { method: "POST", body: JSON.stringify({topic_id: topic ? topic.ID : ''})});
+      const res = await fetchApi<ApiResponse<Picture[]>>("/images", { method: "POST", body: JSON.stringify({topic_id: topic ? topic.ID : ''})});
       return Array.isArray(res.data) ? res.data : [];
     }  
   });
@@ -36,7 +36,7 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
     setSelectedImage(image); // Set selected image
     setDrawerOpen(true);
 
-    fetchApi<ApiResponse<Picture>>(url("/image/view"), { method: "POST", body: JSON.stringify({image_id: image.ID})}).then(() => refetch())
+    fetchApi<ApiResponse<Picture>>("/image/view", { method: "POST", body: JSON.stringify({image_id: image.ID})}).then(() => refetch())
   };
 
   const handleClose = () => {

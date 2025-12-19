@@ -3,7 +3,7 @@ import { Box, Drawer, IconButton, Tab, Tabs, useMediaQuery, useTheme } from "@mu
 import baseUrl from "./data/constant";
 import { Picture } from "./data/data";
 import { useQuery } from "@tanstack/react-query";
-import fetchApi, { ApiResponse, url } from "../api";
+import fetchApi, { ApiResponse } from "../api";
 import { useEffect, useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
 import ReactMarkdown from "react-markdown";
@@ -134,7 +134,7 @@ function AISummary({ prompt, active }: { prompt: string | null, active: boolean 
     queryKey: ['ai-summary', prompt],
     enabled: active && !!prompt,
     queryFn: async () => {
-      const res = await fetchApi<ApiResponse<string>>(url("/summarize"), { method: "POST", body: JSON.stringify({ prompt: prompt?.concat(". Structure response in markdown, not specify this format in response") }) });
+      const res = await fetchApi<ApiResponse<string>>("/summarize", { method: "POST", body: JSON.stringify({ prompt: prompt?.concat(". Structure response in markdown, not specify this format in response") }) });
       return res.data;
     },
     

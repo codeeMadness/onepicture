@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { Fragment } from "react";
-import fetchApi, { ApiResponse, url } from "../api";
+import fetchApi, { ApiResponse } from "../api";
 import { Topic } from "./data/topics";
 
 import Gallery from "./Gallerry";
@@ -31,7 +31,7 @@ export default function Topics({ selectedCard, setSelectedCard }: TopicsProps) {
   const { data: topics , isLoading } = useQuery({ 
     queryKey: ['topics'], 
     queryFn: async () => {
-      const res = await fetchApi<ApiResponse<Topic[]>>(url("/topics"));
+      const res = await fetchApi<ApiResponse<Topic[]>>("/topics");
       return Array.isArray(res.data) ? res.data : [];
     }    
   });
