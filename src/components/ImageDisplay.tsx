@@ -1,5 +1,5 @@
-import { Close } from "@mui/icons-material";
-import { Box, Drawer, IconButton, Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
+import { Close, Toc } from "@mui/icons-material";
+import { Box, Button, Drawer, IconButton, Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
 import baseUrl from "./data/constant";
 import { Picture } from "./data/data";
 import { useQuery } from "@tanstack/react-query";
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useNav } from "../context/NavContext";
 
 const DRAWER_WIDTH = "50%";
 
@@ -27,6 +28,8 @@ export default function ImageDisplay({
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down("sm"));
   const [tab, setTab] = useState(0);
+  const { nav, setNav } = useNav();
+  console.log("Drawer nav:", nav);
 
   useEffect(() => {
     setTab(0);
@@ -68,6 +71,9 @@ export default function ImageDisplay({
               <Tab label="Image" />
               <Tab label="AI Summary" />
             </Tabs>
+            <IconButton onClick={() => {setNav("topics"); handleClose()}} title="Topics">
+              <Toc />
+            </IconButton>
 
             <IconButton onClick={handleClose}>
               <Close />
@@ -109,21 +115,41 @@ export default function ImageDisplay({
 }
 
 const aiHtmlStyles = {
+  /* ===== Typography (yours) ===== */
   "& h1": { fontSize: "1.4rem", mt: 2 },
   "& h2": { fontSize: "1.2rem", mt: 2 },
   "& p": { lineHeight: 1.7, mb: 1 },
   "& ul": { pl: 3 },
   "& li": { mb: 0.5 },
+
+  /* ===== Code ===== */
   "& code": {
     bgcolor: "grey.100",
     px: 0.5,
     borderRadius: 1,
     fontFamily: "monospace",
+    whiteSpace: "pre-wrap",      // 🔥 inline code wrap
+    wordBreak: "break-word",
   },
+
   "& pre": {
     bgcolor: "grey.100",
     p: 2,
     borderRadius: 2,
+    overflowX: "auto",           // 🔥 scroll inside code block
+    maxWidth: "100%",
+    WebkitOverflowScrolling: "touch",
+  },
+
+  /* ===== Mobile safety ===== */
+  "& *": {
+    maxWidth: "100%",            // 🔥 prevent overflow
+    wordBreak: "break-word",
+  },
+
+  "& table": {
+    display: "block",
+    width: "100%",
     overflowX: "auto",
   },
 };

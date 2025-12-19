@@ -7,20 +7,21 @@ import { Face5, Feedback, Toc } from '@mui/icons-material';
 import Topics from './Topics';
 import AboutMe from './AboutMe';
 import Feedbacks from './Feedbacks';
+import { useNav } from '../context/NavContext';
 
 export default function MainPage() {
-  const [value, setValue] = React.useState(0);
   const [cardIndex, setCardIndex] = React.useState("");
+  const { nav, setNav } = useNav();
 
   const renderComponent = () => {
-    switch (value) {
-      case 0:
+    switch (nav) {
+      case "topics":
         return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>; // Render the Topic component
       // case 1:
       //   return <Review />; // Render the Topic component
-      case 1:
+      case "about":
         return <AboutMe />; // Render the AboutMe component
-      case 2:
+      case "feedback":
         return <Feedbacks />; // Render the Feedback component
       default:
         return null;
@@ -33,19 +34,19 @@ export default function MainPage() {
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
         <BottomNavigation
           showLabels
-          value={value}
+          value={nav}
           onChange={(_event, newValue) => {
-            setValue(newValue);
+            setNav(newValue);
             if (newValue === 0) {
               setCardIndex(""); // Reset cardIndex when navigating to Topics
             }
 
           }}
         >
-          <BottomNavigationAction label="Topics" icon={<Toc />} />
+          <BottomNavigationAction label="Topics" icon={<Toc />} value="topics"/>
           {/* <BottomNavigationAction label="Review" icon={<Bolt />} /> */}
-          <BottomNavigationAction label="About Me" icon={<Face5 />} />
-          <BottomNavigationAction label="Feedback" icon={<Feedback />} />
+          <BottomNavigationAction label="About Me" icon={<Face5 />} value="about"/>
+          <BottomNavigationAction label="Feedback" icon={<Feedback />} value="feedback"/>
         </BottomNavigation>
       </Paper>
     </Box>
