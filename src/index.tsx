@@ -12,8 +12,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    {/* Wrap your app with QueryClientProvider */}
+  // <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
@@ -21,5 +20,5 @@ root.render(
         </Routes>
       </Router>
     </QueryClientProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
