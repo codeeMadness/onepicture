@@ -49,10 +49,14 @@ export default function ImageDisplay({
         height: "100vh",
         overflow: "hidden",
       }}
-      PaperProps={{
-        sx: {
-          transform: "translateZ(0)",
-          WebkitTransform: "translateZ(0)",
+      slotProps={{
+        paper: {
+          sx: {
+            transform: "translateZ(0)",
+            WebkitTransform: "translateZ(0)",
+            willChange: "transform",
+            overflowY: "auto",
+          },
         },
       }}
     >
