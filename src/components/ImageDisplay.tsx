@@ -49,6 +49,12 @@ export default function ImageDisplay({
         height: "100vh",
         overflow: "hidden",
       }}
+      PaperProps={{
+        sx: {
+          transform: "translateZ(0)",
+          WebkitTransform: "translateZ(0)",
+        },
+      }}
     >
       <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         {/* Header */}
@@ -70,7 +76,7 @@ export default function ImageDisplay({
               <Tab label="Image" />
               <Tab label="AI Summary" />
             </Tabs>
-            <IconButton onClick={() => {setNav(0); handleClose()}} title="Topics">
+            <IconButton onClick={() => { setNav(0); handleClose() }} title="Topics">
               <Toc />
             </IconButton>
 
@@ -167,17 +173,16 @@ function AISummary({ prompt, active }: { prompt: string | null, active: boolean 
       const res = await fetchApi<ApiResponse<string>>("/summarize", { method: "POST", body: JSON.stringify({ prompt: prompt }) });
       return res.data;
     },
-    
+
   });
 
   if (isLoading || isFetching) return <LoadingIndicator />;
 
   return <Box
     sx={{
-    ...aiHtmlStyles,
-    border: "2px solid red", // 👈 DEBUG BORDER
-  }}
-  >
+      ...aiHtmlStyles,
+      border: "2px solid red", // 👈 DEBUG BORDER
+    }}>
     <ReactMarkdown remarkPlugins={[remarkGfm]}>
       {summary || 'No Summary Yet!'}
     </ReactMarkdown>
