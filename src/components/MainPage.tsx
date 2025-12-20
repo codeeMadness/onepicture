@@ -15,13 +15,13 @@ export default function MainPage() {
 
   const renderComponent = () => {
     switch (nav) {
-      case "topics":
+      case 0:
         return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>; // Render the Topic component
       // case 1:
       //   return <Review />; // Render the Topic component
-      case "about":
+      case 1:
         return <AboutMe />; // Render the AboutMe component
-      case "feedback":
+      case 2:
         return <Feedbacks />; // Render the Feedback component
       default:
         return null;
@@ -43,10 +43,10 @@ export default function MainPage() {
 
           }}
         >
-          <BottomNavigationAction label="Topics" icon={<Toc />} value="topics"/>
+          <BottomNavigationAction label="Topics" icon={<Toc />}/>
           {/* <BottomNavigationAction label="Review" icon={<Bolt />} /> */}
-          <BottomNavigationAction label="About Me" icon={<Face5 />} value="about"/>
-          <BottomNavigationAction label="Feedback" icon={<Feedback />} value="feedback"/>
+          <BottomNavigationAction label="About Me" icon={<Face5 />}/>
+          <BottomNavigationAction label="Feedback" icon={<Feedback />}/>
         </BottomNavigation>
       </Paper>
     </Box>

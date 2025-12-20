@@ -1,7 +1,7 @@
 // NavContext.tsx
 import { createContext, useContext } from "react";
 
-export type NavValue = "topics" | "about" | "feedback";
+export type NavValue = 0|1|2;
 
 interface NavContextType {
   nav: NavValue;

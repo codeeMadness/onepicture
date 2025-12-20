@@ -1,5 +1,5 @@
 import { Close, Toc } from "@mui/icons-material";
-import { Box, Button, Drawer, IconButton, Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Drawer, IconButton, Tab, Tabs, Typography, useMediaQuery, useTheme } from "@mui/material";
 import baseUrl from "./data/constant";
 import { Picture } from "./data/data";
 import { useQuery } from "@tanstack/react-query";
@@ -29,7 +29,6 @@ export default function ImageDisplay({
   const isXs = useMediaQuery(theme.breakpoints.down("sm"));
   const [tab, setTab] = useState(0);
   const { nav, setNav } = useNav();
-  console.log("Drawer nav:", nav);
 
   useEffect(() => {
     setTab(0);
@@ -71,7 +70,7 @@ export default function ImageDisplay({
               <Tab label="Image" />
               <Tab label="AI Summary" />
             </Tabs>
-            <IconButton onClick={() => {setNav("topics"); handleClose()}} title="Topics">
+            <IconButton onClick={() => {setNav(0); handleClose()}} title="Topics">
               <Toc />
             </IconButton>
 
@@ -160,7 +159,7 @@ function AISummary({ prompt, active }: { prompt: string | null, active: boolean 
     queryKey: ['ai-summary', prompt],
     enabled: active && !!prompt,
     queryFn: async () => {
-      const res = await fetchApi<ApiResponse<string>>("/summarize", { method: "POST", body: JSON.stringify({ prompt: prompt?.concat(". Structure response in markdown, not specify this format in response") }) });
+      const res = await fetchApi<ApiResponse<string>>("/summarize", { method: "POST", body: JSON.stringify({ prompt: prompt }) });
       return res.data;
     },
     
@@ -168,10 +167,13 @@ function AISummary({ prompt, active }: { prompt: string | null, active: boolean 
 
   if (isLoading || isFetching) return <LoadingIndicator />;
 
-  return <Box
-    sx={aiHtmlStyles}>
-    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-      {summary ?? 'No Summary Yet!'}
-    </ReactMarkdown>
+  // return <Box
+  //   sx={aiHtmlStyles}>
+  //   <ReactMarkdown remarkPlugins={[remarkGfm]}>
+  //     {summary ?? 'No Summary Yet!'}
+  //   </ReactMarkdown>
+  // </Box>
+  return <Box>
+    <Typography>{summary ?? 'No Summary Yet!'}</Typography>
   </Box>
 }

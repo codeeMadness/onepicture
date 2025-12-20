@@ -4,7 +4,7 @@ import { NavContext, NavValue } from "./NavContext";
 import { ThemeProvider } from "@mui/material/styles";
 
 export function AppProviders({ children }: { children: ReactNode }) {
-  const [nav, setNav] = useState<NavValue>("topics");
+  const [nav, setNav] = useState<NavValue>(0);
 
   return (
     <NavContext.Provider value={{ nav, setNav }}>
