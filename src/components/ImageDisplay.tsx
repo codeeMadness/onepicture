@@ -52,12 +52,13 @@ export default function ImageDisplay({
       slotProps={{
         paper: {
           sx: {
-            transform: "translateZ(0)",
-            WebkitTransform: "translateZ(0)",
-            willChange: "transform",
             overflowY: "auto",
           },
         },
+      }}
+      ModalProps={{
+        disablePortal: true, // 🔥 CRITICAL
+        keepMounted: true,   // 🔥 prevents async remount
       }}
     >
       <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
