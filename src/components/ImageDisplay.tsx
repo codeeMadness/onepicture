@@ -114,10 +114,11 @@ export default function ImageDisplay({
 }
 
 const aiHtmlStyles = {
-  /* ===== Typography (yours) ===== */
+  /* ===== Typography ===== */
   "& h1": { fontSize: "1.4rem", mt: 2 },
   "& h2": { fontSize: "1.2rem", mt: 2 },
   "& p": { lineHeight: 1.7, mb: 1 },
+
   "& ul": { pl: 3 },
   "& li": { mb: 0.5 },
 
@@ -127,7 +128,7 @@ const aiHtmlStyles = {
     px: 0.5,
     borderRadius: 1,
     fontFamily: "monospace",
-    whiteSpace: "pre-wrap",      // 🔥 inline code wrap
+    whiteSpace: "pre-wrap",
     wordBreak: "break-word",
   },
 
@@ -135,19 +136,23 @@ const aiHtmlStyles = {
     bgcolor: "grey.100",
     p: 2,
     borderRadius: 2,
-    overflowX: "auto",           // 🔥 scroll inside code block
+    overflowX: "auto",
     maxWidth: "100%",
     WebkitOverflowScrolling: "touch",
   },
 
-  /* ===== Mobile safety ===== */
+  /* ===== Mobile CRITICAL FIXES ===== */
+  color: "text.primary",
+  minHeight: "1px", // 🔥 prevents Safari collapse
+
   "& *": {
-    maxWidth: "100%",            // 🔥 prevent overflow
+    maxWidth: "100%",
     wordBreak: "break-word",
+    overflowWrap: "anywhere",
   },
 
+  /* ❌ DO NOT use display:block on table */
   "& table": {
-    display: "block",
     width: "100%",
     overflowX: "auto",
   },
@@ -167,13 +172,14 @@ function AISummary({ prompt, active }: { prompt: string | null, active: boolean 
 
   if (isLoading || isFetching) return <LoadingIndicator />;
 
-  // return <Box
-  //   sx={aiHtmlStyles}>
-  //   <ReactMarkdown remarkPlugins={[remarkGfm]}>
-  //     {summary ?? 'No Summary Yet!'}
-  //   </ReactMarkdown>
-  // </Box>
-  return <Box>
-    <Typography>{summary ?? 'No Summary Yet!'}</Typography>
+  return <Box
+    sx={{
+    ...aiHtmlStyles,
+    border: "2px solid red", // 👈 DEBUG BORDER
+  }}
+  >
+    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+      {summary || 'No Summary Yet!'}
+    </ReactMarkdown>
   </Box>
 }
