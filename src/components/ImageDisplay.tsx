@@ -1,26 +1,13 @@
-import { Close, Toc } from "@mui/icons-material";
 import {
   Box,
-  Drawer,
-  IconButton,
-  Tab,
-  Tabs,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
-import baseUrl from "./data/constant";
 import { Picture } from "./data/data";
 import fetchApi, { ApiResponse } from "../api";
 import { useEffect, useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
-import { useNav } from "../context/NavContext";
 import { useQuery } from "@tanstack/react-query";
 import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import IosSafeDrawer from "../MobileSafeDrawer";
 import MuiDrawerDesktop from "../MuiDrawerDesktop";
-
-const DRAWER_WIDTH = "50%";
 
 interface ImageDisplayProps {
   open: boolean; // Modal open state
@@ -34,41 +21,18 @@ export default function ImageDisplay({
   selectedImage,
 }: ImageDisplayProps) {
   const [tab, setTab] = useState(0);
-  const isIOS =
-    typeof navigator !== "undefined" &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   useEffect(() => {
     setTab(0);
   }, [selectedImage]);
 
-  // return isIOS ? (
-  //   <IosSafeDrawer
-  //     open={open}
-  //     handleClose={handleClose}
-  //     selectedImage={selectedImage}
-  //     tab={tab}
-  //     setTab={setTab}
-  //   />
-  // ) : (
-  //   <MuiDrawerDesktop
-  //     open={open}
-  //     handleClose={handleClose}
-  //     selectedImage={selectedImage}
-  //     tab={tab}
-  //     setTab={setTab}
-  //   />
-  // );
-
-  return (
-    <IosSafeDrawer
-      open={open}
-      handleClose={handleClose}
-      selectedImage={selectedImage}
-      tab={tab}
-      setTab={setTab}
-    />
-  );
+  return <MuiDrawerDesktop
+  open={open}
+  handleClose={handleClose}
+  selectedImage={selectedImage}
+  tab={tab}
+  setTab={setTab}
+/>
 }
 
 export function AISummary({
