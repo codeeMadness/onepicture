@@ -181,6 +181,8 @@ function AISummary({ prompt, active }: { prompt: string | null, active: boolean 
 
   });
 
+  const markdown = `Just a link: www.nasa.gov.`
+
   if (isLoading || isFetching) return <LoadingIndicator />;
 
   return <Box
@@ -188,7 +190,8 @@ function AISummary({ prompt, active }: { prompt: string | null, active: boolean 
       ...aiHtmlStyles
     }}>
     <Markdown remarkPlugins={[remarkGfm]}>
-      {summary || 'No Summary Yet!'}
+      {/* {summary || 'No Summary Yet!'} */}
+      {markdown}
     </Markdown>
   </Box>
 }
