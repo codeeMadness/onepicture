@@ -147,7 +147,7 @@ export function AISummary({
         ...aiHtmlStyles,
       }}
     >
-      <Markdown remarkPlugins={[[remarkGfm, { autolinkLiteral: false }]]}>
+      <Markdown>
         {summary || "No Summary Yet!"}
       </Markdown>
     </Box>
