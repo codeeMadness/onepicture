@@ -1,14 +1,14 @@
 import { Close, Toc } from "@mui/icons-material";
-import { Box, Button, Drawer, IconButton, Tab, Tabs, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Drawer, IconButton, Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
 import baseUrl from "./data/constant";
 import { Picture } from "./data/data";
-import { useQuery } from "@tanstack/react-query";
 import fetchApi, { ApiResponse } from "../api";
 import { useEffect, useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { useNav } from "../context/NavContext";
+import { useQuery } from "@tanstack/react-query";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const DRAWER_WIDTH = "50%";
 
@@ -185,11 +185,10 @@ function AISummary({ prompt, active }: { prompt: string | null, active: boolean 
 
   return <Box
     sx={{
-      ...aiHtmlStyles,
-      border: "2px solid red", // 👈 DEBUG BORDER
+      ...aiHtmlStyles
     }}>
-    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+    <Markdown remarkPlugins={[remarkGfm]}>
       {summary || 'No Summary Yet!'}
-    </ReactMarkdown>
+    </Markdown>
   </Box>
 }

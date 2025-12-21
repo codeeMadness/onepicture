@@ -1,9 +1,21 @@
 import { LinkedIn, MusicNote, YouTube } from "@mui/icons-material";
-import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 
 export default function AboutMe() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const style = {
+    width: "100%",
+    height: isSmallScreen ? "60vh" : "80vh", // Adjust height for small screens
+    border: "none", // Ensure no border
+  };
 
   return (
     <Box
@@ -67,6 +79,24 @@ export default function AboutMe() {
           >
             My Tiktok
           </Button>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh", // Full viewport height
+            padding: isSmallScreen ? "16px" : "0", // Add padding for small screens
+          }}
+        >
+          <iframe
+            title="Feedback Form"
+            src="https://docs.google.com/forms/d/e/1FAIpQLSeFHTyEVjLTHqiBwNKpFeIZ0jzyjqgTYS6RNr8NFcDo824esQ/viewform?embedded=true"
+            style={style}
+          >
+            Loading...
+          </iframe>
         </Box>
 
         {/* <Box

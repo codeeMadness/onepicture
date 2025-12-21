@@ -21,8 +21,7 @@ export default function MainPage() {
       //   return <Review />; // Render the Topic component
       case 1:
         return <AboutMe />; // Render the AboutMe component
-      case 2:
-        return <Feedbacks />; // Render the Feedback component
+
       default:
         return null;
     }
@@ -46,7 +45,6 @@ export default function MainPage() {
           <BottomNavigationAction label="Topics" icon={<Toc />}/>
           {/* <BottomNavigationAction label="Review" icon={<Bolt />} /> */}
           <BottomNavigationAction label="About Me" icon={<Face5 />}/>
-          <BottomNavigationAction label="Feedback" icon={<Feedback />}/>
         </BottomNavigation>
       </Paper>
     </Box>
