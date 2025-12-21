@@ -99,7 +99,7 @@ export function AISummary({
         method: "POST",
         body: JSON.stringify({ prompt: prompt }),
       });
-      return res.data;
+      return await res.data;
     },
   });
 
