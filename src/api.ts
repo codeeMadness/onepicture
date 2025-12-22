@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-export const api_host = "https://8rxb5n4d52.execute-api.ap-southeast-1.amazonaws.com/dev"
+export const api_host = "https://8rxb5n4d52.execute-api.ap-southeast-1.amazonaws.com/master"
 export const image_host = "https://raw.githubusercontent.com/codeeMadness/onepicture/refs/heads/main/images/"
 
 const SECRET = "jinkhemeoheng"
@@ -25,8 +25,6 @@ function signRequest(
     "x-signature": signature,
   };
 }
-
-
 
 const constructURL = (url: string) => {
   return api_host.concat(url);
