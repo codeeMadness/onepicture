@@ -16,7 +16,7 @@ function signRequest(
 ) {
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const bodyHash = body ? sha256(body) : "";
-  const message = `${method}${"/dev".concat(path)}${timestamp}${bodyHash}`;
+  const message = `${method}${"/master".concat(path)}${timestamp}${bodyHash}`;
 
   const signature = CryptoJS.HmacSHA256(message, SECRET).toString();
 
