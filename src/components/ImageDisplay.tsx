@@ -1,38 +1,137 @@
 import {
   Box,
+  Drawer,
+  IconButton,
+  Tab,
+  Tabs,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Picture } from "./data/data";
 import fetchApi, { ApiResponse } from "../api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
 import { useQuery } from "@tanstack/react-query";
 import Markdown from "react-markdown";
-import MuiDrawerDesktop from "../MuiDrawerDesktop";
+import { Close, Toc } from "@mui/icons-material";
+import baseUrl from "./data/constant";
+import { useEventToPassParams } from "../event/useEventToPassParam";
+import { NAVIGATE_TOPICS, OPEN_DRAWER_EVENT } from "../event/events";
+import { describeEvents } from "../event/useEventToTriggerAction";
 
-interface ImageDisplayProps {
-  open: boolean; // Modal open state
-  handleClose: () => void; // Function to close the modal
-  selectedImage: Picture | null; // Image URL to display
-}
+export default function ImageDisplay() {
 
-export default function ImageDisplay({
-  open,
-  handleClose,
-  selectedImage,
-}: ImageDisplayProps) {
   const [tab, setTab] = useState(0);
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down("sm"));
+  const DRAWER_WIDTH = "50%";
+  const [selectedImage, setSelectedImage] = useState<Picture | null>(null);
+
+  useEventToPassParams<Picture>(OPEN_DRAWER_EVENT, item => {
+    setOpen(true);
     setTab(0);
-  }, [selectedImage]);
+    setSelectedImage(item);
 
-  return <MuiDrawerDesktop
-  open={open}
-  handleClose={handleClose}
-  selectedImage={selectedImage}
-  tab={tab}
-  setTab={setTab}
-/>
+  }, [])
+
+  const handleClose = () => {
+    setSelectedImage(null);
+    setOpen(false);
+  }
+
+  return (
+    <Drawer
+      anchor="right"
+      open={open}
+      variant="persistent"
+      sx={{
+        width: isXs ? "100%" : DRAWER_WIDTH,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          width: isXs ? "100%" : DRAWER_WIDTH,
+          boxSizing: "border-box",
+        },
+        height: "100vh",
+        overflow: "hidden",
+      }}
+      slotProps={{
+        paper: {
+          sx: {
+            overflowY: "auto",
+          },
+        },
+      }}
+      ModalProps={{
+        disablePortal: true, // 🔥 CRITICAL
+        keepMounted: true,   // 🔥 prevents async remount
+      }}
+    >
+      <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+        {/* Header */}
+        <Box sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+          bgcolor: "background.paper",
+          borderBottom: 1,
+          borderColor: "divider",
+        }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Tabs
+              value={tab}
+              onChange={(_, v) => setTab(v)}
+              aria-label="image tabs"
+              sx={{ flex: 1 }}
+            >
+              <Tab label="Image" />
+              <Tab label="AI Summary" />
+            </Tabs>
+            <IconButton onClick={() => { 
+              describeEvents([new Event(NAVIGATE_TOPICS)]); 
+              handleClose(); 
+            }} title="Topics">
+              <Toc />
+            </IconButton>
+
+            <IconButton onClick={() => handleClose()}>
+              <Close />
+            </IconButton>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: "auto",
+          }}>
+          {tab === 0 && selectedImage && (
+            <Box sx={{ p: 2 }}>
+              <img
+                src={`${baseUrl}${selectedImage.URL.replace(/ /g, "%20")}.png`}
+                alt={selectedImage.Name}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "contain"
+                }}
+              />
+            </Box>
+          )}
+
+          {tab === 1 && selectedImage && (
+            <Box sx={{ p: 2 }}>
+              <AISummary prompt={selectedImage.Prompt} active={tab === 1} />
+            </Box>
+          )}
+
+
+        </Box>
+
+
+      </Box>
+    </Drawer>
+  );
 }
 
 export function AISummary({

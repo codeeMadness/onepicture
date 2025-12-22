@@ -14,15 +14,14 @@ import { Fragment, useEffect, useState } from "react";
 import fetchApi, { ApiResponse } from "../api";
 import { Picture } from "./data/data";
 import { Topic } from "./data/topics";
-import ImageDisplay from "./ImageDisplay";
 import LoadingIndicator from "./LoadingIndicator";
+import { dispatchEventWithParams } from "../event/useEventToPassParam";
+import { OPEN_DRAWER_EVENT } from "../event/events";
 
 export default function Gallery({ topic }: { topic: Topic | null }) {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredTopics, setFilteredTopics] = useState<Picture[]>([]);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<Picture | null>(null);
 
   const { data: pictures , isLoading, refetch } = useQuery({ 
     queryKey: ['images', topic?.ID],
@@ -33,15 +32,11 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
   });
 
   const handleOpen = (image: Picture) => {
-    setSelectedImage(image); // Set selected image
-    setDrawerOpen(true);
+    //update views count
+    fetchApi<ApiResponse<Picture>>("/image/view", { method: "POST", body: JSON.stringify({image_id: image.ID})})
+    .then(() => refetch())
 
-    fetchApi<ApiResponse<Picture>>("/image/view", { method: "POST", body: JSON.stringify({image_id: image.ID})}).then(() => refetch())
-  };
-
-  const handleClose = () => {
-    setDrawerOpen(false);
-    setSelectedImage(null); // Reset the image
+    dispatchEventWithParams<Picture>(OPEN_DRAWER_EVENT, image)
   };
 
   // Update filtered topics whenever the search query changes
@@ -108,11 +103,6 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
           </Typography>
         )}
       </Box>
-      <ImageDisplay
-        open={drawerOpen}
-        handleClose={handleClose}
-        selectedImage={selectedImage}
-      />
     </>
   );
 }

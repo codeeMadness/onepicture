@@ -3,11 +3,13 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
-import { Face5, Feedback, Toc } from '@mui/icons-material';
+import { Face5, Toc } from '@mui/icons-material';
 import Topics from './Topics';
 import AboutMe from './AboutMe';
-import Feedbacks from './Feedbacks';
-import { useNav } from '../context/NavContext';
+import { NavValue, useNav } from '../context/NavContext';
+import ImageDisplay from './ImageDisplay';
+import { useEventToTriggerAction } from '../event/useEventToTriggerAction';
+import { NAVIGATE_TOPICS } from '../event/events';
 
 export default function MainPage() {
   const [cardIndex, setCardIndex] = React.useState("");
@@ -27,6 +29,21 @@ export default function MainPage() {
     }
   };
 
+  useEventToTriggerAction({
+    events: [NAVIGATE_TOPICS],
+    triggerFn: () => {
+      navigateTo(0);
+    }
+  })
+
+  const navigateTo = React.useCallback((nextNav: NavValue) => {
+    setNav(nextNav);
+
+    if (nextNav === 0) {
+      setCardIndex(""); // always reset when going to Topics
+    }
+  }, [setNav]);
+
   return (
     <Box sx={{ pb: 7}}>
       {renderComponent()}
@@ -35,11 +52,7 @@ export default function MainPage() {
           showLabels
           value={nav}
           onChange={(_event, newValue) => {
-            setNav(newValue);
-            if (newValue === 0) {
-              setCardIndex(""); // Reset cardIndex when navigating to Topics
-            }
-
+            navigateTo(newValue);
           }}
         >
           <BottomNavigationAction label="Topics" icon={<Toc />}/>
@@ -47,6 +60,7 @@ export default function MainPage() {
           <BottomNavigationAction label="About Me" icon={<Face5 />}/>
         </BottomNavigation>
       </Paper>
+      <ImageDisplay/>
     </Box>
   );
 }

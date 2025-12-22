@@ -2,9 +2,9 @@ import { Close, Toc } from "@mui/icons-material";
 import { IconButton, Tab } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
-import baseUrl from "./components/data/constant";
-import { AISummary } from "./components/ImageDisplay";
-import { useNav } from "./context/NavContext";
+import baseUrl from "./data/constant";
+import { AISummary } from "./ImageDisplay";
+import { useNav } from "../context/NavContext";
 
 export default function IosSafeDrawer({
     open,
