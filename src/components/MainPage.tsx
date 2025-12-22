@@ -8,8 +8,8 @@ import Topics from './Topics';
 import AboutMe from './AboutMe';
 import { NavValue, useNav } from '../context/NavContext';
 import ImageDisplay from './ImageDisplay';
-import { useEventToTriggerAction } from '../event/useEventToTriggerAction';
-import { NAVIGATE_TOPICS } from '../event/events';
+import { describeEvents, useEventToTriggerAction } from '../event/useEventToTriggerAction';
+import { CLOSE_DRAWER_EVENT, NAVIGATE_TOPICS } from '../event/events';
 
 export default function MainPage() {
   const [cardIndex, setCardIndex] = React.useState("");
@@ -53,6 +53,7 @@ export default function MainPage() {
           value={nav}
           onChange={(_event, newValue) => {
             navigateTo(newValue);
+            describeEvents([new Event(CLOSE_DRAWER_EVENT)]);
           }}
         >
           <BottomNavigationAction label="Topics" icon={<Toc />}/>
