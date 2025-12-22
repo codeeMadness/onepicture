@@ -16,8 +16,8 @@ import Markdown from "react-markdown";
 import { Close, Toc } from "@mui/icons-material";
 import baseUrl from "./data/constant";
 import { useEventToPassParams } from "../event/useEventToPassParam";
-import { NAVIGATE_TOPICS, OPEN_DRAWER_EVENT } from "../event/events";
-import { describeEvents } from "../event/useEventToTriggerAction";
+import { CLOSE_DRAWER_EVENT, OPEN_DRAWER_EVENT } from "../event/events";
+import { useEventToTriggerAction } from "../event/useEventToTriggerAction";
 
 export default function ImageDisplay() {
 
@@ -27,6 +27,7 @@ export default function ImageDisplay() {
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down("sm"));
   const DRAWER_WIDTH = "50%";
+  const BOTTOM_NAV_HEIGHT = 56;
   const [selectedImage, setSelectedImage] = useState<Picture | null>(null);
 
   useEventToPassParams<Picture>(OPEN_DRAWER_EVENT, item => {
@@ -35,6 +36,13 @@ export default function ImageDisplay() {
     setSelectedImage(item);
 
   }, [])
+
+  useEventToTriggerAction({
+    events: [CLOSE_DRAWER_EVENT],
+    triggerFn: () => {
+      handleClose();
+    }
+  })
 
   const handleClose = () => {
     setSelectedImage(null);
@@ -52,8 +60,9 @@ export default function ImageDisplay() {
         "& .MuiDrawer-paper": {
           width: isXs ? "100%" : DRAWER_WIDTH,
           boxSizing: "border-box",
+          bottom: `${BOTTOM_NAV_HEIGHT}px`,   // ✅ key line
+          height: `calc(100vh - ${BOTTOM_NAV_HEIGHT}px)`, // ✅ key line
         },
-        height: "100vh",
         overflow: "hidden",
       }}
       slotProps={{
@@ -88,13 +97,6 @@ export default function ImageDisplay() {
               <Tab label="Image" />
               <Tab label="AI Summary" />
             </Tabs>
-            <IconButton onClick={() => { 
-              describeEvents([new Event(NAVIGATE_TOPICS)]); 
-              handleClose(); 
-            }} title="Topics">
-              <Toc />
-            </IconButton>
-
             <IconButton onClick={() => handleClose()}>
               <Close />
             </IconButton>
