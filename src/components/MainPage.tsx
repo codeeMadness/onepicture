@@ -18,11 +18,9 @@ export default function MainPage() {
   const renderComponent = () => {
     switch (nav) {
       case 0:
-        return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>; // Render the Topic component
-      // case 1:
-      //   return <Review />; // Render the Topic component
+        return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>;
       case 1:
-        return <AboutMe />; // Render the AboutMe component
+        return <AboutMe />;
 
       default:
         return null;

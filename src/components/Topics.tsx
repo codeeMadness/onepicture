@@ -12,7 +12,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Fragment } from "react";
 import fetchApi, { ApiResponse } from "../api";
-import { Topic } from "./data/topics";
+import { Topic } from "./data/Topic";
 
 import Gallery from "./Gallerry";
 import LoadingIndicator from "./LoadingIndicator";

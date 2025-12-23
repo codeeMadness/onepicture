@@ -1,4 +1,3 @@
-// NavContext.tsx
 import { createContext, useContext } from "react";
 
 export type NavValue = 0|1|2;

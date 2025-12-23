@@ -12,8 +12,8 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Fragment, useEffect, useState } from "react";
 import fetchApi, { ApiResponse } from "../api";
-import { Picture } from "./data/data";
-import { Topic } from "./data/topics";
+import { Picture } from "./data/Picture";
+import { Topic } from "./data/Topic";
 import LoadingIndicator from "./LoadingIndicator";
 import { dispatchEventWithParams } from "../event/useEventToPassParam";
 import { OPEN_DRAWER_EVENT } from "../event/events";
