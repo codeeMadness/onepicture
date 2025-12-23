@@ -59,8 +59,8 @@ export default function ImageDisplay() {
         "& .MuiDrawer-paper": {
           width: isXs ? "100%" : DRAWER_WIDTH,
           boxSizing: "border-box",
-          bottom: `${BOTTOM_NAV_HEIGHT}px`,   // ✅ key line
-          height: `calc(100vh - ${BOTTOM_NAV_HEIGHT}px)`, // ✅ key line
+          bottom: `calc(${BOTTOM_NAV_HEIGHT}px + env(safe-area-inset-bottom))`,
+          height: `calc(100dvh - ${BOTTOM_NAV_HEIGHT}px - env(safe-area-inset-bottom))`,
         },
         overflow: "hidden",
       }}
