@@ -59,15 +59,8 @@ export default function ImageDisplay() {
         "& .MuiDrawer-paper": {
           width: isXs ? "100%" : DRAWER_WIDTH,
           boxSizing: "border-box",
-          /* ✅ iOS-safe bottom offset */
-          bottom: `calc(var(--bottom-nav-height) + env(safe-area-inset-bottom))`,
-
-          /* ✅ iOS-safe height */
-          height: `calc(
-            100dvh
-            - var(--bottom-nav-height)
-            - env(safe-area-inset-bottom)
-          )`,
+          bottom: `calc(${BOTTOM_NAV_HEIGHT}px + env(safe-area-inset-bottom))`,
+          height: `calc(100dvh - ${BOTTOM_NAV_HEIGHT}px - env(safe-area-inset-bottom))`,
         },
         overflow: "hidden",
       }}
