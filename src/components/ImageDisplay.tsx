@@ -15,8 +15,8 @@ import { useQuery } from "@tanstack/react-query";
 import Markdown from "react-markdown";
 import { Close } from "@mui/icons-material";
 import { useEventToPassParams } from "../event/useEventToPassParam";
-import { CLOSE_DRAWER_EVENT, OPEN_DRAWER_EVENT } from "../event/events";
-import { useEventToTriggerAction } from "../event/useEventToTriggerAction";
+import { CLOSE_DRAWER_EVENT, OPEN_DRAWER_EVENT, RESET_SELECT_ITEM } from "../event/events";
+import { describeEvents, useEventToTriggerAction } from "../event/useEventToTriggerAction";
 
 export default function ImageDisplay() {
 
@@ -46,6 +46,7 @@ export default function ImageDisplay() {
   const handleClose = () => {
     setSelectedImage(null);
     setOpen(false);
+    describeEvents([new Event(RESET_SELECT_ITEM)]);
   }
 
   return (

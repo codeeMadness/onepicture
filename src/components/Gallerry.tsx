@@ -16,32 +16,35 @@ import { Picture } from "./data/Picture";
 import { Topic } from "./data/Topic";
 import LoadingIndicator from "./LoadingIndicator";
 import { dispatchEventWithParams } from "../event/useEventToPassParam";
-import { OPEN_DRAWER_EVENT } from "../event/events";
+import { OPEN_DRAWER_EVENT, RESET_SELECT_ITEM } from "../event/events";
+import { useEventToTriggerAction } from "../event/useEventToTriggerAction";
 
 export default function Gallery({ topic }: { topic: Topic | null }) {
-
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredTopics, setFilteredTopics] = useState<Picture[]>([]);
 
-  const { data: pictures , isLoading, refetch } = useQuery({ 
+  const { data: pictures, isLoading, refetch } = useQuery({
     queryKey: ['images', topic?.ID],
     queryFn: async () => {
-      const res = await fetchApi<ApiResponse<Picture[]>>("/images", { method: "POST", body: JSON.stringify({topic_id: topic ? topic.ID : ''})});
+      const res = await fetchApi<ApiResponse<Picture[]>>("/images", { method: "POST", body: JSON.stringify({ topic_id: topic ? topic.ID : '' }) });
       return Array.isArray(res.data) ? res.data : [];
-    }  
+    }
   });
 
   const handleOpen = (image: Picture) => {
     //update views count
-    fetchApi<ApiResponse<Picture>>("/image/view", { method: "POST", body: JSON.stringify({image_id: image.ID})})
-    .then(() => refetch())
+    fetchApi<ApiResponse<Picture>>("/image/view", { method: "POST", body: JSON.stringify({ image_id: image.ID }) })
+      .then(() => refetch())
+    
+    setSelectedId(image.ID);
 
     dispatchEventWithParams<Picture>(OPEN_DRAWER_EVENT, image)
   };
 
   // Update filtered topics whenever the search query changes
   useEffect(() => {
-    if(!pictures) return;
+    if (!pictures) return;
 
     const newFilteredTopics = pictures.filter((item) =>
       item.Name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -50,13 +53,20 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
 
   }, [pictures, searchQuery]);
 
+  useEventToTriggerAction({
+    events: [RESET_SELECT_ITEM],
+    triggerFn: () => {
+      setSelectedId(null);
+    }
+  })
+
   if (isLoading) return <LoadingIndicator />;
 
   return (
     <>
       {/* Search Bar */}
-      <Box sx={{ display: "block", justifyContent: "center", position: "sticky", top: 0, left: 0, zIndex: 1000, bgcolor: "background.paper",}}>
-        <Typography variant="h3" sx={{marginLeft: 2}}>{topic ? topic.Name : ''}</Typography>
+      <Box sx={{ display: "block", justifyContent: "center", position: "sticky", top: 0, left: 0, zIndex: 1000, bgcolor: "background.paper", }}>
+        <Typography variant="h3" sx={{ marginLeft: 2 }}>{topic ? topic.Name : ''}</Typography>
         <TextField
           variant="outlined"
           label="Search..."
@@ -77,19 +87,26 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
       >
         {filteredTopics.length > 0 ? (
           <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-            {filteredTopics.sort((a,b) => b.Views - a.Views).map((item) => (
+            {filteredTopics.sort((a, b) => b.Views - a.Views).map((item) => (
               <Fragment key={item.ID}>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={() => handleOpen(item)}>
+                  <ListItemButton selected={selectedId === item.ID} onClick={() => handleOpen(item)} sx={{
+                    "&.Mui-selected": {
+                      backgroundColor: "action.selected",
+                    },
+                    "&.Mui-selected:hover": {
+                      backgroundColor: "action.selected",
+                    },
+                  }}>
                     <ListItemIcon>
                       <CrueltyFree />
                     </ListItemIcon>
-                    <ListItemText primary={item.Name} 
-                      secondary={ 
-                      <Box sx={{ display: "flex", alignItems: "center" }}> 
-                        <Visibility fontSize="small" sx={{ mr: 0.5 }} /> 
-                        <Typography variant="body2">{item.Views}</Typography> 
-                      </Box> }
+                    <ListItemText primary={item.Name}
+                      secondary={
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                          <Visibility fontSize="small" sx={{ mr: 0.5 }} />
+                          <Typography variant="body2">{item.Views}</Typography>
+                        </Box>}
                     />
                   </ListItemButton>
                 </ListItem>
