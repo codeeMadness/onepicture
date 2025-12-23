@@ -7,14 +7,13 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { Picture } from "./data/data";
-import fetchApi, { ApiResponse } from "../api";
+import { Picture } from "./data/Picture";
+import fetchApi, { ApiResponse, image_host } from "../api";
 import { useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
 import { useQuery } from "@tanstack/react-query";
 import Markdown from "react-markdown";
-import { Close, Toc } from "@mui/icons-material";
-import baseUrl from "./data/constant";
+import { Close } from "@mui/icons-material";
 import { useEventToPassParams } from "../event/useEventToPassParam";
 import { CLOSE_DRAWER_EVENT, OPEN_DRAWER_EVENT } from "../event/events";
 import { useEventToTriggerAction } from "../event/useEventToTriggerAction";
@@ -110,7 +109,7 @@ export default function ImageDisplay() {
           {tab === 0 && selectedImage && (
             <Box sx={{ p: 2 }}>
               <img
-                src={`${baseUrl}${selectedImage.URL.replace(/ /g, "%20")}.png`}
+                src={`${image_host}${selectedImage.URL.replace(/ /g, "%20")}.png`}
                 alt={selectedImage.Name}
                 style={{
                   width: "100%",

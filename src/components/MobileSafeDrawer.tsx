@@ -2,9 +2,9 @@ import { Close, Toc } from "@mui/icons-material";
 import { IconButton, Tab } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
-import baseUrl from "./data/constant";
 import { AISummary } from "./ImageDisplay";
 import { useNav } from "../context/NavContext";
+import { image_host } from "../api";
 
 export default function IosSafeDrawer({
     open,
@@ -73,7 +73,7 @@ export default function IosSafeDrawer({
             {tab === 0 && selectedImage && (
               <Box sx={{ p: 2 }}>
                 <img
-                  src={`${baseUrl}${selectedImage.URL.replace(/ /g, "%20")}.png`}
+                  src={`${image_host}${selectedImage.URL.replace(/ /g, "%20")}.png`}
                   alt={selectedImage.Name}
                   style={{ width: "100%", height: "auto", objectFit: "contain" }}
                 />
