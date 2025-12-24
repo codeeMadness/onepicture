@@ -3,13 +3,15 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
-import { Face5, Toc } from '@mui/icons-material';
+import { Face5, Toc, Whatshot } from '@mui/icons-material';
 import Topics from './Topics';
 import AboutMe from './AboutMe';
 import { NavValue, useNav } from '../context/NavContext';
 import ImageDisplay from './ImageDisplay';
 import { describeEvents, useEventToTriggerAction } from '../event/useEventToTriggerAction';
-import { CLOSE_DRAWER_EVENT, NAVIGATE_TOPICS } from '../event/events';
+import { CLOSE_DRAWER_EVENT, CLOSE_PAYMENT_DRAWER_EVENT, NAVIGATE_TOPICS } from '../event/events';
+import Pricing from './PricingPlan';
+import PaymentDrawer from '../PaymentDrawer';
 
 export default function MainPage() {
   const [cardIndex, setCardIndex] = React.useState("");
@@ -17,10 +19,12 @@ export default function MainPage() {
 
   const renderComponent = () => {
     switch (nav) {
-      case 0:
+      case NavValue.Topics:
         return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>;
-      case 1:
+      case NavValue.AboutMe:
         return <AboutMe />;
+      case NavValue.Pricing:
+        return <Pricing />;
 
       default:
         return null;
@@ -30,14 +34,14 @@ export default function MainPage() {
   useEventToTriggerAction({
     events: [NAVIGATE_TOPICS],
     triggerFn: () => {
-      navigateTo(0);
+      navigateTo(NavValue.Topics);
     }
   })
 
   const navigateTo = React.useCallback((nextNav: NavValue) => {
     setNav(nextNav);
 
-    if (nextNav === 0) {
+    if (nextNav === NavValue.Topics) {
       setCardIndex(""); // always reset when going to Topics
     }
   }, [setNav]);
@@ -51,15 +55,16 @@ export default function MainPage() {
           value={nav}
           onChange={(_event, newValue) => {
             navigateTo(newValue);
-            describeEvents([new Event(CLOSE_DRAWER_EVENT)]);
+            describeEvents([new Event(CLOSE_DRAWER_EVENT), new Event(CLOSE_PAYMENT_DRAWER_EVENT)]);
           }}
         >
           <BottomNavigationAction label="Topics" icon={<Toc />}/>
-          {/* <BottomNavigationAction label="Review" icon={<Bolt />} /> */}
+          <BottomNavigationAction label="Pro" icon={<Whatshot />}/>
           <BottomNavigationAction label="About Me" icon={<Face5 />}/>
         </BottomNavigation>
       </Paper>
       <ImageDisplay/>
+      <PaymentDrawer/>
     </Box>
   );
 }

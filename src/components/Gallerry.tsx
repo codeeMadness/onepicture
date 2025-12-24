@@ -1,7 +1,7 @@
-import { CrueltyFree, Visibility } from "@mui/icons-material";
+import { CrueltyFree, Visibility, Whatshot } from "@mui/icons-material";
 import {
+  Avatar,
   Box,
-  Divider,
   ListItem,
   ListItemButton,
   ListItemIcon,
@@ -12,34 +12,52 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Fragment, useEffect, useState } from "react";
 import fetchApi, { ApiResponse } from "../api";
-import { Picture } from "./data/Picture";
+import { isProContent, Picture } from "./data/Picture";
 import { Topic } from "./data/Topic";
 import LoadingIndicator from "./LoadingIndicator";
 import { dispatchEventWithParams } from "../event/useEventToPassParam";
-import { OPEN_DRAWER_EVENT, RESET_SELECT_ITEM } from "../event/events";
-import { useEventToTriggerAction } from "../event/useEventToTriggerAction";
+import { CLOSE_DRAWER_EVENT, CLOSE_PAYMENT_DRAWER_EVENT, OPEN_DRAWER_EVENT, OPEN_PAYMENT_DRAWER_EVENT, RESET_SELECT_ITEM } from "../event/events";
+import { describeEvents, useEventToTriggerAction } from "../event/useEventToTriggerAction";
+import { green, yellow } from "@mui/material/colors";
+import { PricingDrawerMode } from "./data/Pricing";
 
 export default function Gallery({ topic }: { topic: Topic | null }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredTopics, setFilteredTopics] = useState<Picture[]>([]);
 
-  const { data: pictures, isLoading, refetch } = useQuery({
-    queryKey: ['images', topic?.ID],
+  const {
+    data: pictures,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["images", topic?.ID],
     queryFn: async () => {
-      const res = await fetchApi<ApiResponse<Picture[]>>("/images", { method: "POST", body: JSON.stringify({ topic_id: topic ? topic.ID : '' }) });
+      const res = await fetchApi<ApiResponse<Picture[]>>("/images", {
+        method: "POST",
+        body: JSON.stringify({ topic_id: topic ? topic.ID : "" }),
+      });
       return Array.isArray(res.data) ? res.data : [];
-    }
+    },
   });
 
   const handleOpen = (image: Picture) => {
+    describeEvents([new Event(CLOSE_DRAWER_EVENT)]);
+    if (isProContent(image)) {
+      dispatchEventWithParams<PricingDrawerMode>(OPEN_PAYMENT_DRAWER_EVENT, {displayPricingPlan: true, tab: 0});
+      return;
+    }
+
     //update views count
-    fetchApi<ApiResponse<Picture>>("/image/view", { method: "POST", body: JSON.stringify({ image_id: image.ID }) })
-      .then(() => refetch())
-    
+    fetchApi<ApiResponse<Picture>>("/image/view", {
+      method: "POST",
+      body: JSON.stringify({ image_id: image.ID }),
+    }).then(() => refetch());
+
     setSelectedId(image.ID);
 
-    dispatchEventWithParams<Picture>(OPEN_DRAWER_EVENT, image)
+    dispatchEventWithParams<Picture>(OPEN_DRAWER_EVENT, image);
+    describeEvents([new Event(CLOSE_PAYMENT_DRAWER_EVENT)]);
   };
 
   // Update filtered topics whenever the search query changes
@@ -50,23 +68,34 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
       item.Name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredTopics(newFilteredTopics); // Update filtered topics state
-
   }, [pictures, searchQuery]);
 
   useEventToTriggerAction({
     events: [RESET_SELECT_ITEM],
     triggerFn: () => {
       setSelectedId(null);
-    }
-  })
+    },
+  });
 
   if (isLoading) return <LoadingIndicator />;
 
   return (
     <>
       {/* Search Bar */}
-      <Box sx={{ display: "block", justifyContent: "center", position: "sticky", top: 0, left: 0, zIndex: 1000, bgcolor: "background.paper", }}>
-        <Typography variant="h3" sx={{ marginLeft: 2 }}>{topic ? topic.Name : ''}</Typography>
+      <Box
+        sx={{
+          display: "block",
+          justifyContent: "center",
+          position: "sticky",
+          top: 0,
+          left: 0,
+          zIndex: 1000,
+          bgcolor: "background.paper",
+        }}
+      >
+        <Typography variant="h3" sx={{ marginLeft: 2 }}>
+          {topic ? topic.Name : ""}
+        </Typography>
         <TextField
           variant="outlined"
           label="Search..."
@@ -87,32 +116,49 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
       >
         {filteredTopics.length > 0 ? (
           <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-            {filteredTopics.sort((a, b) => b.Views - a.Views).map((item) => (
-              <Fragment key={item.ID}>
-                <ListItem disablePadding>
-                  <ListItemButton selected={selectedId === item.ID} onClick={() => handleOpen(item)} sx={{
-                    "&.Mui-selected": {
-                      backgroundColor: "action.selected",
-                    },
-                    "&.Mui-selected:hover": {
-                      backgroundColor: "action.selected",
-                    },
-                  }}>
-                    <ListItemIcon>
-                      <CrueltyFree />
-                    </ListItemIcon>
-                    <ListItemText primary={item.Name}
-                      secondary={
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                          <Visibility fontSize="small" sx={{ mr: 0.5 }} />
-                          <Typography variant="body2">{item.Views}</Typography>
-                        </Box>}
-                    />
+            {filteredTopics
+              .sort((a, b) => b.Views - a.Views)
+              .map((item) => (
+                <ListItem disablePadding key={item.ID}>
+                  <ListItemButton
+                    selected={selectedId === item.ID}
+                    onClick={() => handleOpen(item)}
+                    sx={{
+                      "&.Mui-selected": {
+                        backgroundColor: "action.selected",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "action.selected",
+                      },
+                    }}
+                  >
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="flex-end"
+                    >
+                      <ListItemIcon>
+                        <CrueltyFree />
+                      </ListItemIcon>
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        gap={2}
+                      >
+                        <ListItemText primary={item.Name} />
+                        {isProContent(item) && (
+                          <Avatar sx={{ bgcolor: yellow[500] }}><Whatshot/></Avatar>
+                        )}
+                        <Visibility fontSize="small" sx={{ mr: 0.5 }} />
+                        <Typography variant="body2">{item.Views}</Typography>
+
+                      </Box>
+                      
+                    </Box>
                   </ListItemButton>
                 </ListItem>
-                <Divider />
-              </Fragment>
-            ))}
+              ))}
           </Box>
         ) : (
           <Typography sx={{ textAlign: "center", mt: 2 }}>

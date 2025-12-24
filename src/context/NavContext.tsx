@@ -1,6 +1,12 @@
 import { createContext, useContext } from "react";
 
-export type NavValue = 0|1|2;
+// export type NavValue = 0|1|2;
+
+export enum NavValue {
+  Topics = 0,
+  Pricing = 1,
+  AboutMe = 2,
+}
 
 interface NavContextType {
   nav: NavValue;
