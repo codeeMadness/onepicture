@@ -246,14 +246,7 @@ function PricingMode({
           setTab(1)
         }}
       >
-        <CardActionArea
-          onClick={() =>
-            dispatchEventWithParams<PricingModel>(
-              OPEN_PAYMENT_DRAWER_EVENT,
-              pricing_models[1]
-            )
-          }
-        >
+        <CardActionArea>
           <CardContent>
             <Grid container>
               <Grid
@@ -323,14 +316,7 @@ function PricingMode({
           setTab(1)
         }}
       >
-        <CardActionArea
-          onClick={() =>
-            dispatchEventWithParams<PricingModel>(
-              OPEN_PAYMENT_DRAWER_EVENT,
-              pricing_models[0]
-            )
-          }
-        >
+        <CardActionArea>
           <CardContent>
             <Grid container>
               <Grid
