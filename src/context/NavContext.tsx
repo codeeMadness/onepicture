@@ -18,7 +18,7 @@ export const NavContext = createContext<NavContextType | null>(null);
 export function useNav() {
   const ctx = useContext(NavContext);
   if (!ctx) {
-    throw new Error("useNav must be used inside NavProvider");
+    throw new Error("useNav must be used inside AppProvider");
   }
   return ctx;
 }
