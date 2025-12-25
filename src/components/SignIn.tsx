@@ -1,6 +1,6 @@
 import { GitHub, Google } from "@mui/icons-material";
 import { Alert, Box, Button } from "@mui/material";
-import { fetchSignInMethodsForEmail, GithubAuthProvider, GoogleAuthProvider, linkWithCredential, OAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, githubProvider, googleProvider } from "../auth/firebase-config";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";

@@ -22,7 +22,6 @@ import {
   RESET_PAYMENT_PLAN_EVENT,
 } from "./event/events";
 import {
-  dispatchEventWithParams,
   useEventToPassParams,
 } from "./event/useEventToPassParam";
 import { describeEvents, useEventToTriggerAction } from "./event/useEventToTriggerAction";
