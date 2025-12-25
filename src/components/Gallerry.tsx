@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import fetchApi, { ApiResponse } from "../api";
 import { isProContent, Picture } from "./data/Picture";
 import { Topic } from "./data/Topic";
@@ -18,7 +18,7 @@ import LoadingIndicator from "./LoadingIndicator";
 import { dispatchEventWithParams } from "../event/useEventToPassParam";
 import { CLOSE_DRAWER_EVENT, CLOSE_PAYMENT_DRAWER_EVENT, OPEN_DRAWER_EVENT, OPEN_PAYMENT_DRAWER_EVENT, RESET_SELECT_ITEM } from "../event/events";
 import { describeEvents, useEventToTriggerAction } from "../event/useEventToTriggerAction";
-import { green, yellow } from "@mui/material/colors";
+import { yellow } from "@mui/material/colors";
 import { PricingDrawerMode } from "./data/Pricing";
 
 export default function Gallery({ topic }: { topic: Topic | null }) {

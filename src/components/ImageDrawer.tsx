@@ -29,7 +29,7 @@ import BlockContent from "./BlockContent";
 export const DRAWER_WIDTH = "50%";
 export const BOTTOM_NAV_HEIGHT = 56;
 
-export default function ImageDisplay() {
+export default function ImageDrawer() {
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -84,70 +84,88 @@ export default function ImageDisplay() {
         },
       }}
     >
-       <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-          {/* Header */}
-          <Box
-            sx={{
-              position: "sticky",
-              top: 0,
-              zIndex: 10,
-              bgcolor: "background.paper",
-              borderBottom: 1,
-              borderColor: "divider",
-            }}
-          >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Tabs
-                value={tab}
-                onChange={(_, v) => setTab(v)}
-                aria-label="image tabs"
-                sx={{ flex: 1 }}
-              >
-                <Tab label="Image" />
-                <Tab label="AI Explained" />
-              </Tabs>
-              <IconButton onClick={() => handleClose()}>
-                <Close />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              flex: 1,
-              overflowY: "auto",
-            }}
-          >
-            {tab === 0 && selectedImage && (
-              <Box sx={{ p: 2 }}>
-                <img
-                  src={`${image_host}${selectedImage.URL.replace(
-                    / /g,
-                    "%20"
-                  )}.png`}
-                  alt={selectedImage.Name}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "contain",
-                  }}
-                />
-              </Box>
-            )}
-
-            {tab === 1 && selectedImage && (
-              <Box sx={{ p: 2 }}>
-                <BlockContent/>
-                {/* <AISummary prompt={selectedImage.Prompt} active={tab === 1} /> */}
-              </Box>
-            )}
+      <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+        {/* Header */}
+        <Box
+          sx={{
+            position: "sticky",
+            top: 0,
+            zIndex: 10,
+            bgcolor: "background.paper",
+            borderBottom: 1,
+            borderColor: "divider",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Tabs
+              value={tab}
+              onChange={(_, v) => setTab(v)}
+              aria-label="image tabs"
+              sx={{ flex: 1 }}
+            >
+              <Tab label="Image" />
+              <Tab label="AI Explained" />
+            </Tabs>
+            <IconButton onClick={() => handleClose()}>
+              <Close />
+            </IconButton>
           </Box>
         </Box>
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: "auto",
+          }}
+        >
+          {tab === 0 && selectedImage && (
+            <ImageDisplay image={selectedImage} />
+          )}
+
+          {tab === 1 && selectedImage && (
+            <Box sx={{ p: 2 }}>
+              <BlockContent />
+              {/* <AISummary prompt={selectedImage.Prompt} active={tab === 1} /> */}
+            </Box>
+          )}
+        </Box>
+      </Box>
       )
     </Drawer>
   );
 }
 
-export function AISummary({
+function ImageDisplay({ image }: { image: Picture }) {
+
+  const isPro = isProContent(image);
+
+  const { data: url, isLoading } = useQuery({
+    queryKey: ["image", image],
+    enabled: !isPro,
+    queryFn: async () => {
+      const res = await fetchApi<ApiResponse<string>>("/image/s3-presigned", {
+        method: "POST",
+        body: JSON.stringify({ object_key: image.URL.concat(".png"), bucket_name: "onepicture-assets" }),
+      });
+      return res.data;
+    },
+  });
+
+  if (isLoading) return <LoadingIndicator />;
+
+  return <Box sx={{ p: 2 }}>
+    <img
+      src={url ?? ""}
+      alt={image.Name}
+      style={{
+        width: "100%",
+        height: "auto",
+        objectFit: "contain",
+      }}
+    />
+  </Box>;
+}
+
+function AISummary({
   prompt,
   active,
 }: {

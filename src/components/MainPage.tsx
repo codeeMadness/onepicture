@@ -7,7 +7,7 @@ import { Face5, Toc, Whatshot } from '@mui/icons-material';
 import Topics from './Topics';
 import AboutMe from './AboutMe';
 import { NavValue, useNav } from '../context/NavContext';
-import ImageDisplay from './ImageDisplay';
+import ImageDrawer from './ImageDrawer';
 import { describeEvents, useEventToTriggerAction } from '../event/useEventToTriggerAction';
 import { CLOSE_DRAWER_EVENT, CLOSE_PAYMENT_DRAWER_EVENT, NAVIGATE_TOPICS } from '../event/events';
 import Pricing from './PricingPlan';
@@ -63,7 +63,7 @@ export default function MainPage() {
           <BottomNavigationAction label="About Me" icon={<Face5 />}/>
         </BottomNavigation>
       </Paper>
-      <ImageDisplay/>
+      <ImageDrawer/>
       <PaymentDrawer/>
     </Box>
   );

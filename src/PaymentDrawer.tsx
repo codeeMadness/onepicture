@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { PricingDrawerMode, PricingModel, pricing_models } from "./components/data/Pricing";
-import { BOTTOM_NAV_HEIGHT, DRAWER_WIDTH } from "./components/ImageDisplay";
+import { BOTTOM_NAV_HEIGHT, DRAWER_WIDTH } from "./components/ImageDrawer";
 import {
   CLOSE_PAYMENT_DRAWER_EVENT,
   OPEN_PAYMENT_DRAWER_EVENT,
