@@ -22,12 +22,10 @@ import {
   RESET_PAYMENT_PLAN_EVENT,
 } from "./event/events";
 import {
+  dispatchEventWithParams,
   useEventToPassParams,
 } from "./event/useEventToPassParam";
 import { describeEvents, useEventToTriggerAction } from "./event/useEventToTriggerAction";
-import SignIn from "./components/SignIn";
-import { useAuth } from "./context/AuthContext";
-import MyProfile from "./components/MyProfile";
 
 export default function PaymentDrawer() {
   const theme = useTheme();
@@ -37,8 +35,6 @@ export default function PaymentDrawer() {
   const [displayPricingPlan, setDisplayPricingPlan] = useState(true);
   const [open, setOpen] = useState(false);
   const [pricingModel, setPricingModel] = useState<PricingModel | null>(null);
-
-  const {userDetail} = useAuth();
 
   useEventToPassParams<PricingDrawerMode>(
     OPEN_PAYMENT_DRAWER_EVENT,
@@ -139,8 +135,6 @@ export default function PaymentDrawer() {
               >
                 {pricingModel && <Typography variant="h5">You are paying for <b>{pricingModel.name}</b></Typography>}
               </Box>
-              {userDetail && <MyProfile />}
-              {!userDetail && <SignIn />}
             </Box>
           )}
 

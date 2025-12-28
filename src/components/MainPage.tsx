@@ -5,7 +5,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
 import { Face5, Toc, Whatshot } from '@mui/icons-material';
 import Topics from './Topics';
-import AboutAuthor from './AboutAuthor';
+import AboutMe from './AboutMe';
 import { NavValue, useNav } from '../context/NavContext';
 import ImageDrawer from './ImageDrawer';
 import { describeEvents, useEventToTriggerAction } from '../event/useEventToTriggerAction';
@@ -22,7 +22,7 @@ export default function MainPage() {
       case NavValue.Topics:
         return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>;
       case NavValue.AboutMe:
-        return <AboutAuthor />;
+        return <AboutMe />;
       case NavValue.Pricing:
         return <Pricing />;
 
