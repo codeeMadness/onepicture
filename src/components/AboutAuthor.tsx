@@ -7,7 +7,7 @@ import {
   useTheme,
 } from "@mui/material";
 
-export default function AboutMe() {
+export default function AboutAuthor() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 

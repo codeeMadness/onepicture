@@ -14,13 +14,13 @@ export interface PricingModel {
 export const pricing_models: PricingModel[] = [
     {
         name: "One Month Access",
-        price: 1,
+        price: 1.5,
         mode: Mode.MONTH,
         currency: "USD"
     },
     {
         name: "One Year Access",
-        price: 8,
+        price: 10,
         mode: Mode.YEAR,
         currency: "USD"
     },
