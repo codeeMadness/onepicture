@@ -8,7 +8,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { isProContent, Picture } from "./data/Picture";
-import fetchApi, { ApiResponse, image_host } from "../api";
+import fetchApi, { ApiResponse } from "../api";
 import { useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
 import { useQuery } from "@tanstack/react-query";
@@ -24,7 +24,6 @@ import {
   describeEvents,
   useEventToTriggerAction,
 } from "../event/useEventToTriggerAction";
-import BlockContent from "./BlockContent";
 
 export const DRAWER_WIDTH = "50%";
 export const BOTTOM_NAV_HEIGHT = 56;
@@ -123,8 +122,7 @@ export default function ImageDrawer() {
 
           {tab === 1 && selectedImage && (
             <Box sx={{ p: 2 }}>
-              <BlockContent />
-              {/* <AISummary prompt={selectedImage.Prompt} active={tab === 1} /> */}
+              <AISummary prompt={selectedImage.Prompt} active={tab === 1} />
             </Box>
           )}
         </Box>

@@ -13,7 +13,7 @@ import { dispatchEventWithParams } from "../event/useEventToPassParam";
 import { useEventToTriggerAction } from "../event/useEventToTriggerAction";
 import { PricingDrawerMode, PricingModel, pricing_models } from "./data/Pricing";
 
-export default function Pricing() {
+export default function PricingPlan() {
   const [selected, setSelected] = useState<PricingModel | null>();
 
   useEventToTriggerAction({

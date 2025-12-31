@@ -12,14 +12,12 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import fetchApi, { ApiResponse } from "../api";
-import { isProContent, Picture } from "./data/Picture";
+import { Picture } from "./data/Picture";
 import { Topic } from "./data/Topic";
 import LoadingIndicator from "./LoadingIndicator";
 import { dispatchEventWithParams } from "../event/useEventToPassParam";
-import { CLOSE_DRAWER_EVENT, CLOSE_PAYMENT_DRAWER_EVENT, OPEN_DRAWER_EVENT, OPEN_PAYMENT_DRAWER_EVENT, RESET_SELECT_ITEM } from "../event/events";
+import { CLOSE_DRAWER_EVENT, OPEN_DRAWER_EVENT, RESET_SELECT_ITEM } from "../event/events";
 import { describeEvents, useEventToTriggerAction } from "../event/useEventToTriggerAction";
-import { yellow } from "@mui/material/colors";
-import { PricingDrawerMode } from "./data/Pricing";
 
 export default function Gallery({ topic }: { topic: Topic | null }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -43,10 +41,6 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
 
   const handleOpen = (image: Picture) => {
     describeEvents([new Event(CLOSE_DRAWER_EVENT)]);
-    if (isProContent(image)) {
-      dispatchEventWithParams<PricingDrawerMode>(OPEN_PAYMENT_DRAWER_EVENT, {displayPricingPlan: true, tab: 0});
-      return;
-    }
 
     //update views count
     fetchApi<ApiResponse<Picture>>("/image/view", {
@@ -57,7 +51,6 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
     setSelectedId(image.ID);
 
     dispatchEventWithParams<Picture>(OPEN_DRAWER_EVENT, image);
-    describeEvents([new Event(CLOSE_PAYMENT_DRAWER_EVENT)]);
   };
 
   // Update filtered topics whenever the search query changes
@@ -147,9 +140,6 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
                         gap={2}
                       >
                         <ListItemText primary={item.Name} />
-                        {isProContent(item) && (
-                          <Avatar sx={{ bgcolor: yellow[500] }}><Whatshot/></Avatar>
-                        )}
                         <Visibility fontSize="small" sx={{ mr: 0.5 }} />
                         <Typography variant="body2">{item.Views}</Typography>
 

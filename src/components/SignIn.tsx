@@ -4,15 +4,26 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, githubProvider, googleProvider } from "../auth/firebase-config";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
     const { setUserDetail } = useAuth();
     const [errorMsg, setErrorMsg] = useState<string>("");
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const fromDonate = location.state?.from === "donate";
+
     const googleSignIn = () => {
         signInWithPopup(auth, googleProvider).then(async res => {
-            setUserDetail(res.user)
+            setUserDetail(res.user);
+        }).catch((error) => {
+            setErrorMsg(error.code)
+        }).finally(() => {
+            handleNavigate();
         })
+        
     }
 
     const githubSignIn = () => {
@@ -20,7 +31,20 @@ export default function SignIn() {
             setUserDetail(res.user);
         }).catch((error) => {
             setErrorMsg(error.code)
-        });
+        }).finally(() => {
+            handleNavigate();
+        })
+    }
+
+    const handleNavigate = () => {
+        if (fromDonate) {
+            navigate("/donate", {
+                state: { linked: true },
+                replace: true,
+            });
+        } else {
+            navigate("/profile", { replace: true });
+        }
     }
 
 

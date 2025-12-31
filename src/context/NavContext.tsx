@@ -4,7 +4,7 @@ import { createContext, useContext } from "react";
 
 export enum NavValue {
   Topics = 0,
-  Pricing = 1,
+  Donation = 1,
   AboutMe = 2,
 }
 

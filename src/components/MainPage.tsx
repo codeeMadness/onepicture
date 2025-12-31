@@ -3,15 +3,15 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
-import { Face5, Toc, Whatshot } from '@mui/icons-material';
+import { Face5, Toc, VolunteerActivism } from '@mui/icons-material';
 import Topics from './Topics';
 import AboutAuthor from './AboutAuthor';
 import { NavValue, useNav } from '../context/NavContext';
 import ImageDrawer from './ImageDrawer';
 import { describeEvents, useEventToTriggerAction } from '../event/useEventToTriggerAction';
 import { CLOSE_DRAWER_EVENT, CLOSE_PAYMENT_DRAWER_EVENT, NAVIGATE_TOPICS } from '../event/events';
-import Pricing from './PricingPlan';
 import PaymentDrawer from '../PaymentDrawer';
+import DonationPage from './DonationPage';
 
 export default function MainPage() {
   const [cardIndex, setCardIndex] = React.useState("");
@@ -21,10 +21,10 @@ export default function MainPage() {
     switch (nav) {
       case NavValue.Topics:
         return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>;
+      case NavValue.Donation:
+        return <DonationPage />;
       case NavValue.AboutMe:
         return <AboutAuthor />;
-      case NavValue.Pricing:
-        return <Pricing />;
 
       default:
         return null;
@@ -59,7 +59,7 @@ export default function MainPage() {
           }}
         >
           <BottomNavigationAction label="Topics" icon={<Toc />}/>
-          <BottomNavigationAction label="Pro" icon={<Whatshot />}/>
+          <BottomNavigationAction label="Support This" value="/donate" icon={<VolunteerActivism />}/>
           <BottomNavigationAction label="About Me" icon={<Face5 />}/>
         </BottomNavigation>
       </Paper>
