@@ -169,7 +169,7 @@ const DonationPage = () => {
 
           <Box
             component="img"
-            src="/MoMoQR.jfif"
+            src="/MoMoQR.png"
             alt="MoMo QR Code"
             sx={{
               width: "100%",
