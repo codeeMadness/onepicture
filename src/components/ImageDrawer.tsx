@@ -7,7 +7,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { isProContent, Picture } from "./data/Picture";
+import { Picture } from "./data/Picture";
 import fetchApi, { ApiResponse } from "../api";
 import { useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
@@ -134,11 +134,8 @@ export default function ImageDrawer() {
 
 function ImageDisplay({ image }: { image: Picture }) {
 
-  const isPro = isProContent(image);
-
   const { data: url, isLoading } = useQuery({
     queryKey: ["image", image],
-    enabled: !isPro,
     queryFn: async () => {
       const res = await fetchApi<ApiResponse<string>>("/image/s3-presigned", {
         method: "POST",

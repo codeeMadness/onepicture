@@ -1,146 +1,184 @@
-import React, { useEffect, useState } from "react";
-import { Box, Card, CardContent, Typography, Button, FormControlLabel, Checkbox, Tooltip } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  TextField,
+  Divider,
+  Tooltip,
+  IconButton,
+} from "@mui/material";
+import { AccountBalanceOutlined, LinkedIn } from "@mui/icons-material";
 
 const BMC_URL = "https://www.buymeacoffee.com/1picture";
+const PAYPAL_URL = "https://www.paypal.me/1pictureclick";
 
-const DonationPage: React.FC = () => {
-  const navigate = useNavigate();
-  const [linkAccount, setLinkAccount] = useState(false);
+const DonationPage = () => {
 
   const handleDonateClick = () => {
-    if (linkAccount) {
-      navigate("/signin", {
-        state: { from: "donate" },
-      });
-    } else {
-      window.open(BMC_URL, "_blank", "noopener,noreferrer");
-    }
+    window.open(BMC_URL, "_blank", "noopener,noreferrer");
   };
 
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.state?.autoDonate) {
-      window.open(BMC_URL, "_blank", "noopener,noreferrer");
-    }
-  }, [location.state]);
+  const handlePaypalClick = () => {
+    window.open(PAYPAL_URL, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        bgcolor: "background.default",
+        maxWidth: 480,
+        mx: "auto",
         px: 2,
+        pt: 3,
+        pb: 10, // important for BottomNavigation
       }}
     >
-      <Card
-        sx={{
-          maxWidth: 420,
-          width: "100%",
-          borderRadius: 3,
-          boxShadow: 3,
-          textAlign: "center",
-        }}
-      >
-        <CardContent sx={{ p: 4 }}>
-          {/* Header */}
-          <Typography variant="h5" fontWeight={600} gutterBottom>
-            Support This Project
+      {/* ================= Header ================= */}
+      <Typography variant="h5" fontWeight={600} gutterBottom>
+        Support this project 💙
+      </Typography>
+
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+        If it helps you, consider supporting it so the project can keep running ☕
+        Support is always optional — thank you!
+      </Typography>
+
+      {/* ================= About Me ================= */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            About me
           </Typography>
 
+          <Typography variant="body2" color="text.secondary">
+            I’m an indie developer building this project in my free time.
+            Your support helps me maintain and improve it for everyone.
+          </Typography>
+
+          <Button
+            variant="text"
+            size="small"
+            startIcon={<LinkedIn />}
+            href="https://www.linkedin.com/in/nkmhang/"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              textTransform: "none",
+              padding: 0,
+              minWidth: "auto",
+            }}
+          >
+            My LinkedIn
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card sx={{ mb: 3, backgroundColor: "action.hover" }}>
+        <CardContent>
+          <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+            Supporter perks
+          </Typography>
+
+          <Typography variant="body2" color="text.secondary">
+            As a small thank you, supporters may occasionally receive:
+            <br />
+            • Early access to new images or new features
+            <br />
+            • Priority feedback or feature requests
+            <br />
+            • A mention or thank-you note (when appropriate)
+          </Typography>
+        </CardContent>
+      </Card>
+
+      {/* ================= Donation ================= */}
+      <Card>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            Make a donation
+          </Typography>
+
+          {/* Name input */}
+          {/* <TextField
+            label="Your name (optional)"
+            placeholder="e.g. Alex"
+            size="small"
+            fullWidth
+            value={supporterName}
+            onChange={(e) => setSupporterName(e.target.value)}
+            sx={{ mb: 1 }}
+            InputProps={{
+              endAdornment: (
+                <Tooltip
+                  title="Your name is optional and used only for a thank-you note."
+                  arrow
+                >
+                  <IconButton size="small">
+                    <InfoOutlinedIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              ),
+            }}
+          /> */}
+
+          <Divider sx={{ my: 2 }} />
+
+          {/* Buy Me a Coffee */}
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={handleDonateClick}
+            sx={{
+              backgroundColor: "#FFDD00",
+              color: "#000",
+              fontWeight: 600,
+              textTransform: "none",
+              mb: 2,
+              "&:hover": {
+                backgroundColor: "#FFD000",
+              },
+            }}
+          >
+            ☕ Buy me a coffee
+          </Button>
+
+          <Button
+            fullWidth
+            variant="outlined"
+            onClick={handlePaypalClick}
+            startIcon={<AccountBalanceOutlined />}
+            sx={{
+              textTransform: "none",
+              fontWeight: 500,
+              mb: 2,
+            }}
+          >
+            Donate via PayPal
+          </Button>
+
+          {/* MoMo */}
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ mb: 3 }}
+            textAlign="center"
+            sx={{ mb: 1 }}
           >
-            This project is developed and maintained by an independent creator.
-            If you find it useful, you can support it to help cover server costs
-            and future development. All support is completely optional and
-            voluntary.
+            Or donate via MoMo (🇻🇳)
           </Typography>
 
-          {/* Buy Me a Coffee Button */}
-          <Box sx={{ mb: 3 }}>
-            <Button
-              onClick={handleDonateClick}
-              sx={{
-                backgroundColor: "#FFDD00",
-                color: "#000",
-                fontWeight: 600,
-                textTransform: "none",
-                borderRadius: 2,
-                px: 3,
-                py: 1.2,
-                "&:hover": {
-                  backgroundColor: "#F2D200",
-                },
-              }}
-            >
-              ☕ Buy me a coffee
-            </Button>
-          </Box>
-
-          {/* Optional link donation to account */}
-          <Box sx={{ mb: 3 }}>
-            <Tooltip
-              title="If checked, you can sign in to associate this donation with your account (e.g. supporter badge)."
-              placement="top"
-            >
-              <FormControlLabel
-                control={<Checkbox
-                  size="small"
-                  checked={linkAccount}
-                  onChange={(e) => setLinkAccount(e.target.checked)}
-                />}
-                label={
-                  <Typography variant="caption" color="text.secondary">
-                    I want to link this support to my account (optional)
-                  </Typography>
-                }
-              />
-            </Tooltip>
-          </Box>
-
-          {/* Momo QR (Vietnam users) */}
-          <Box sx={{ mb: 3 }}>
-            <Typography
-              variant="subtitle2"
-              color="text.secondary"
-              sx={{ mb: 1 }}
-            >
-              🇻🇳 Support via Momo (Vietnam)
-            </Typography>
-            <Box
-              component="img"
-              src="/MoMoQR.jfif"
-              alt="Momo QR Code"
-              sx={{
-                width: 180,
-                height: 180,
-                mx: "auto",
-                borderRadius: 2,
-                border: "1px solid",
-                borderColor: "divider",
-              }}
-            />
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              display="block"
-              sx={{ mt: 1 }}
-            >
-              Scan with Momo to support (optional)
-            </Typography>
-          </Box>
-
-          {/* Footer note */}
-          <Typography variant="caption" color="text.disabled" sx={{ mb: 3 }}>
-            No subscriptions. No paywalls. Just a simple way to say thanks 💙
-          </Typography>
+          <Box
+            component="img"
+            src="/MoMoQR.jfif"
+            alt="MoMo QR Code"
+            sx={{
+              width: "100%",
+              maxWidth: 260,
+              display: "block",
+              mx: "auto",
+              borderRadius: 2,
+            }}
+          />
         </CardContent>
       </Card>
     </Box>

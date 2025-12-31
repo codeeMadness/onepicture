@@ -3,9 +3,8 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
-import { Face5, Toc, VolunteerActivism } from '@mui/icons-material';
+import { RocketLaunch, VolunteerActivism } from '@mui/icons-material';
 import Topics from './Topics';
-import AboutAuthor from './AboutAuthor';
 import { NavValue, useNav } from '../context/NavContext';
 import ImageDrawer from './ImageDrawer';
 import { describeEvents, useEventToTriggerAction } from '../event/useEventToTriggerAction';
@@ -23,8 +22,8 @@ export default function MainPage() {
         return <Topics selectedCard={cardIndex} setSelectedCard={setCardIndex}/>;
       case NavValue.Donation:
         return <DonationPage />;
-      case NavValue.AboutMe:
-        return <AboutAuthor />;
+      // case NavValue.AboutMe:
+      //   return <AboutAuthor />;
 
       default:
         return null;
@@ -58,9 +57,9 @@ export default function MainPage() {
             describeEvents([new Event(CLOSE_DRAWER_EVENT), new Event(CLOSE_PAYMENT_DRAWER_EVENT)]);
           }}
         >
-          <BottomNavigationAction label="Topics" icon={<Toc />}/>
-          <BottomNavigationAction label="Support This" value="/donate" icon={<VolunteerActivism />}/>
-          <BottomNavigationAction label="About Me" icon={<Face5 />}/>
+          <BottomNavigationAction label="Review?" icon={<RocketLaunch />}/>
+          <BottomNavigationAction label="Support This" icon={<VolunteerActivism />}/>
+          {/* <BottomNavigationAction label="About Me" icon={<Face5 />}/> */}
         </BottomNavigation>
       </Paper>
       <ImageDrawer/>

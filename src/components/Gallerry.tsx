@@ -1,4 +1,4 @@
-import { CrueltyFree, Visibility, Whatshot } from "@mui/icons-material";
+import { Visibility, Whatshot } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -131,7 +131,7 @@ export default function Gallery({ topic }: { topic: Topic | null }) {
                       alignItems="flex-end"
                     >
                       <ListItemIcon>
-                        <CrueltyFree />
+                        <Whatshot />
                       </ListItemIcon>
                       <Box
                         display="flex"
