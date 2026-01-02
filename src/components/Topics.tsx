@@ -1,4 +1,4 @@
-import { FlutterDash } from "@mui/icons-material";
+import { Rocket } from "@mui/icons-material";
 import {
   Box,
   CircularProgress,
@@ -48,7 +48,7 @@ export default function Topics({ selectedCard, setSelectedCard }: TopicsProps) {
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleCardClick(item.ID)}>
                 <ListItemIcon>
-                  <FlutterDash />
+                  <Rocket />
                 </ListItemIcon>
                 <ListItemText primary={item.Name} />
               </ListItemButton>

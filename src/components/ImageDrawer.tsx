@@ -8,45 +8,56 @@ import {
   useTheme,
 } from "@mui/material";
 import { Picture } from "./data/Picture";
-import fetchApi, { ApiResponse, image_host } from "../api";
+import fetchApi, { ApiResponse } from "../api";
 import { useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
 import { useQuery } from "@tanstack/react-query";
 import Markdown from "react-markdown";
 import { Close } from "@mui/icons-material";
 import { useEventToPassParams } from "../event/useEventToPassParam";
-import { CLOSE_DRAWER_EVENT, OPEN_DRAWER_EVENT } from "../event/events";
-import { useEventToTriggerAction } from "../event/useEventToTriggerAction";
+import {
+  CLOSE_DRAWER_EVENT,
+  OPEN_DRAWER_EVENT,
+  RESET_SELECT_ITEM,
+} from "../event/events";
+import {
+  describeEvents,
+  useEventToTriggerAction,
+} from "../event/useEventToTriggerAction";
 
-export default function ImageDisplay() {
+export const DRAWER_WIDTH = "50%";
+export const BOTTOM_NAV_HEIGHT = 56;
 
+export default function ImageDrawer() {
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState(false);
 
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down("sm"));
-  const DRAWER_WIDTH = "50%";
-  const BOTTOM_NAV_HEIGHT = 56;
   const [selectedImage, setSelectedImage] = useState<Picture | null>(null);
 
-  useEventToPassParams<Picture>(OPEN_DRAWER_EVENT, item => {
-    setOpen(true);
-    setTab(0);
-    setSelectedImage(item);
-
-  }, [])
+  useEventToPassParams<Picture>(
+    OPEN_DRAWER_EVENT,
+    (item) => {
+      setOpen(true);
+      setTab(0);
+      setSelectedImage(item);
+    },
+    []
+  );
 
   useEventToTriggerAction({
     events: [CLOSE_DRAWER_EVENT],
     triggerFn: () => {
       handleClose();
-    }
-  })
+    },
+  });
 
   const handleClose = () => {
     setSelectedImage(null);
     setOpen(false);
-  }
+    describeEvents([new Event(RESET_SELECT_ITEM)]);
+  };
 
   return (
     <Drawer
@@ -71,21 +82,19 @@ export default function ImageDisplay() {
           },
         },
       }}
-      ModalProps={{
-        disablePortal: true, // 🔥 CRITICAL
-        keepMounted: true,   // 🔥 prevents async remount
-      }}
     >
       <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         {/* Header */}
-        <Box sx={{
-          position: "sticky",
-          top: 0,
-          zIndex: 10,
-          bgcolor: "background.paper",
-          borderBottom: 1,
-          borderColor: "divider",
-        }}>
+        <Box
+          sx={{
+            position: "sticky",
+            top: 0,
+            zIndex: 10,
+            bgcolor: "background.paper",
+            borderBottom: 1,
+            borderColor: "divider",
+          }}
+        >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Tabs
               value={tab}
@@ -94,7 +103,7 @@ export default function ImageDisplay() {
               sx={{ flex: 1 }}
             >
               <Tab label="Image" />
-              <Tab label="AI Summary" />
+              <Tab label="AI Explained" />
             </Tabs>
             <IconButton onClick={() => handleClose()}>
               <Close />
@@ -105,19 +114,10 @@ export default function ImageDisplay() {
           sx={{
             flex: 1,
             overflowY: "auto",
-          }}>
+          }}
+        >
           {tab === 0 && selectedImage && (
-            <Box sx={{ p: 2 }}>
-              <img
-                src={`${image_host}${selectedImage.URL.replace(/ /g, "%20")}.png`}
-                alt={selectedImage.Name}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "contain"
-                }}
-              />
-            </Box>
+            <ImageDisplay image={selectedImage} />
           )}
 
           {tab === 1 && selectedImage && (
@@ -125,17 +125,42 @@ export default function ImageDisplay() {
               <AISummary prompt={selectedImage.Prompt} active={tab === 1} />
             </Box>
           )}
-
-
         </Box>
-
-
       </Box>
+      )
     </Drawer>
   );
 }
 
-export function AISummary({
+function ImageDisplay({ image }: { image: Picture }) {
+
+  const { data: url, isLoading } = useQuery({
+    queryKey: ["image", image],
+    queryFn: async () => {
+      const res = await fetchApi<ApiResponse<string>>("/image/s3-presigned", {
+        method: "POST",
+        body: JSON.stringify({ object_key: image.URL.concat(".png"), bucket_name: "onepicture-assets" }),
+      });
+      return res.data;
+    },
+  });
+
+  if (isLoading) return <LoadingIndicator />;
+
+  return <Box sx={{ p: 2 }}>
+    <img
+      src={url ?? ""}
+      alt={image.Name}
+      style={{
+        width: "100%",
+        height: "auto",
+        objectFit: "contain",
+      }}
+    />
+  </Box>;
+}
+
+function AISummary({
   prompt,
   active,
 }: {
@@ -199,7 +224,7 @@ export function AISummary({
         method: "POST",
         body: JSON.stringify({ prompt: prompt }),
       });
-      return await res.data;
+      return res.data;
     },
   });
 
@@ -211,9 +236,7 @@ export function AISummary({
         ...aiHtmlStyles,
       }}
     >
-      <Markdown>
-        {summary || "No Summary Yet!"}
-      </Markdown>
+      <Markdown>{summary || "No Summary Yet!"}</Markdown>
     </Box>
   );
 }

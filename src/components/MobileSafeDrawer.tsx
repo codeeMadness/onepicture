@@ -2,7 +2,7 @@ import { Close, Toc } from "@mui/icons-material";
 import { IconButton, Tab } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
-import { AISummary } from "./ImageDisplay";
+import { AISummary } from "./ImageDrawer";
 import { useNav } from "../context/NavContext";
 import { image_host } from "../api";
 
