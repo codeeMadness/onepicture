@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
-import { RocketLaunch, VolunteerActivism } from '@mui/icons-material';
+import { RocketLaunch, Favorite } from '@mui/icons-material';
 import Topics from './Topics';
 import { NavValue, useNav } from '../context/NavContext';
 import ImageDrawer from './ImageDrawer';
@@ -58,7 +58,7 @@ export default function MainPage() {
           }}
         >
           <BottomNavigationAction label="Review?" icon={<RocketLaunch />}/>
-          <BottomNavigationAction label="Support This" icon={<VolunteerActivism />}/>
+          <BottomNavigationAction label="Support This" icon={<Favorite />}/>
           {/* <BottomNavigationAction label="About Me" icon={<Face5 />}/> */}
         </BottomNavigation>
       </Paper>

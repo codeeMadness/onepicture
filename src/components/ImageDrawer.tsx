@@ -103,7 +103,7 @@ export default function ImageDrawer() {
               sx={{ flex: 1 }}
             >
               <Tab label="Image" />
-              <Tab label="AI Explained" />
+              <Tab label="Explore More" />
             </Tabs>
             <IconButton onClick={() => handleClose()}>
               <Close />
